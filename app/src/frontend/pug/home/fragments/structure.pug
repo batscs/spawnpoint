@@ -1,0 +1,13 @@
+extends ../../fragments/structure
+
+append style 
+    link(rel="stylesheet/less", href="/static/css/home/stylesheet.less")
+
+append body 
+    include navigation.pug
+    div.content
+        block content
+
+append script
+    script(src="/static/js/home/fragments/navigation.js")
+

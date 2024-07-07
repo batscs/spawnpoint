@@ -1,6 +1,18 @@
 const fs = require('fs');
 const path = require('path');
 
+type project = {
+    id: string,
+    topics: string[],
+    name: string,
+    description: string,
+    banner: string,
+    isFavorite: boolean,
+    isPublished: boolean,
+    startDate: string,
+    endDate: string
+}
+
 /**
  * Öffnet Datenbankdatei aus dem data-Ordner
  * @param {string} filename Dateiname des JSON-Datei
@@ -28,11 +40,11 @@ const load = (table : string) : any => {
 }
 
 export default class DatabaseController {
-    static getConfig = () => {
+    static getConfig = (): {} => {
         return load("config");
     }
 
-    static getProjects = () => {
+    static getProjects = (): project[] => {
         return load("projects");
     }
 }

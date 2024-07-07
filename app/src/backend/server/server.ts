@@ -21,6 +21,7 @@ app.set('view engine', 'pug');
 // Static File-Serving
 app.use('/static/css', express.static(path.join(__dirname, "../../frontend/css")));
 app.use('/static/js', express.static(path.join(__dirname, "../../frontend/js")));
+app.use('/static/img', express.static(path.join(__dirname, "../../frontend/img")));
 
 app.use(logger);
 app.use(router_homepage);

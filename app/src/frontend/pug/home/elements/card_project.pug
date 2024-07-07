@@ -1,4 +1,5 @@
 div.card-project-wrapper
-    a.img
+    img.img(src=project.banner)
     div.info
-        a=project
+        a.name.text-big=project.name
+        a=project.startDate + " - " + project.endDate

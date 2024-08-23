@@ -1,0 +1,22 @@
+@import "variables.less";
+
+body {
+    background-color: @bg-primary;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    height: calc(100vh - @height-navigation);
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-hover {
+    padding: 10px 20px;
+}
+
+.hero-hover:hover {
+    outline: solid 2px @font-primary;
+}

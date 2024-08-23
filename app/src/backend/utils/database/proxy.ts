@@ -22,7 +22,7 @@ export default class DatabaseProxy {
         return DatabaseProxy.getCachedResult("getConfig", db.getConfig);
     }
 
-    static getProjects() {
+    static getProjects(): project[] {
         return DatabaseProxy.getCachedResult("getProjects", db.getProjects);
     }
 };

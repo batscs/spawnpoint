@@ -1,17 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+import "./types";
 
-type project = {
-    id: string,
-    topics: string[],
-    name: string,
-    description: string,
-    banner: string,
-    isFavorite: boolean,
-    isPublished: boolean,
-    startDate: string,
-    endDate: string
-}
+// todo in eigene type.ts datei extrahieren
+
 
 /**
  * Öffnet Datenbankdatei aus dem data-Ordner
@@ -20,7 +12,8 @@ type project = {
  */
 const openFile = (filename : string): string => {
     // Pfad aufgrund unterschiedlicher Slashes bei Ordnerpfaden (Windows vs. Unix) dynamisch aufbauen
-    const pathToFile = path.join('data', `${filename}.json`);
+    const pathToFile = path.join('data', "database", `${filename}.json`);
+    console.log(pathToFile);
 
     // Datei-Inhalt mit der UTF8-Zeichenkodierung interpretieren
     const options = { encoding: 'utf8' };
@@ -31,20 +24,22 @@ const openFile = (filename : string): string => {
     return filecontent;
 }
 
-const load = (table : string) : any => {
+const load = (table : string): {} | [] | null => {
     try {
         return JSON.parse(openFile(table));
     } catch (err: any) {
-        return {};
+        console.error("Could not load database: " + table);
+        return null;
     }
 }
 
 export default class DatabaseController {
-    static getConfig = (): {} => {
+    static getConfig = () => {
         return load("config");
     }
 
     static getProjects = (): project[] => {
-        return load("projects");
+        let result = load("projects");
+        return Array.isArray(result) ? result : [];
     }
 }

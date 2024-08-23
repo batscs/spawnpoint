@@ -1,0 +1,43 @@
+@import "../variables.less";
+
+.card-project-wrapper {
+
+    width: 350px;
+    height: 350px;
+
+    outline: solid 2px @font-primary;
+
+    text-decoration: none;
+    color: @font-primary;
+
+    .img {
+        height: 55%;
+        width: 100%;
+        background-color: @font-primary;
+
+        outline: solid 2px @font-primary;
+    }
+
+    .info {
+        height: 45%;
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+
+        box-sizing: border-box;
+        padding: 10px 0px;
+    }
+
+    .name {
+        font-weight: bold;
+    }
+
+    .topics {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+}

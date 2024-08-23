@@ -1,2 +1,2 @@
-# bats-glamorous-blog
+# readme
 

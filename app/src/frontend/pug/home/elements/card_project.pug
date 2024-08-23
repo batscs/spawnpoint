@@ -1,5 +1,8 @@
-div.card-project-wrapper
+a.card-project-wrapper(href="/project/" + project.id)
     img.img(src=project.banner)
     div.info
-        a.name.text-big=project.name
-        a=project.startDate + " - " + project.endDate
+        p.name.text-big=project.name
+        p=project.startDate + " - " + project.endDate
+        div.topics
+            for topic in project.topics
+                p=topic

@@ -1,1 +1,1 @@
-body{background-color:#FAF9F6;display:flex;flex-direction:column}.content{height:calc(100vh - 100px);width:100vw;display:flex;justify-content:center}.hero-hover{padding:10px 20px}.hero-hover:hover{outline:solid 2px #050609}
+body{display:flex;flex-direction:column;align-items:center;background-color:#232530}*{font-family:Boston}.content{background-color:#232530;max-width:1200px;height:max-content;width:100%;display:flex;justify-content:center;box-sizing:border-box}.border{border:2px solid #FFFFFF}

@@ -9,8 +9,9 @@ const logger = (req: Request, res: Response, next: NextFunction) => {
     const params: string = JSON.stringify(req.params);
     const query : string = JSON.stringify(req.query);
     const body : string = JSON.stringify(req.body);
+    const method : string = req.method;
 
-    console.log(`[${timestamp}] IP: ${ip} URL: ${url} QUERY: ${query} BODY: ${body} PARAMS: ${params}`);
+    console.log(`[${timestamp}] IP: ${ip} METHOD: ${method} URL: ${url} QUERY: ${query} BODY: ${body} PARAMS: ${params}`);
 
     next();
 };

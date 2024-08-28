@@ -3,14 +3,14 @@
 import express from 'express';
 import bodyParser from "body-parser";
 import path from "node:path";
-// @ts-ignore
 import less from 'less-middleware';
-
 import router_homepage from './middleware/routes/homepage';
+
 import router_admin from './middleware/routes/admin';
 import router_api from './middleware/routes/api';
 import logger from './middleware/log/logger';
 
+const cookieParser = require('cookie-parser')
 const app = express();
 const port = 3000;
 
@@ -22,6 +22,7 @@ app.use('/static/css', less(lessSrcPath, {
     force: true,
 }));
 
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('views', path.join(__dirname, '../../frontend/pug'));
@@ -36,6 +37,7 @@ app.use(logger);
 app.use(router_homepage);
 app.use(router_admin);
 app.use(router_api);
+
 
 // TODO Eventuell sowas wie verifyIntegrity()
 //  -> keine zwei Projects mit gleicher ID usw

@@ -1,17 +1,33 @@
 @import "../variables.less";
 
 .navigation-wrapper {
-    width: 100vw;
-    height: @height-navigation;
-    
+    background-color: @bg-primary;
+    max-width: @max-width;
+    width: 100%;
+
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    box-sizing: border-box;
+
+    padding: 10px 0;
+}
+
+.hero-hover {
+    transition: 0.1s;
+}
+
+.hero-hover:hover {
+    border-radius: @border-radius-normal;
+    background-color: @bg-accent;
+    box-shadow: @box-shadow-normal;
 }
 
 .navigation-bar {
-    width: 80vw;
-    height: 70%;
+    width: 100%;
+    height: 70px;
 
     display: flex;
     flex-direction: row;
@@ -19,24 +35,34 @@
     align-items: center;
 
     box-sizing: border-box;
+    padding: 0 100px;
+
 }
+
 
 .navigation-items {
     display: flex;
     gap: 20px;
     flex-direction: row;
+    
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 
     a {
+        padding: 10px 20px;
         cursor: pointer;
-        color: @font-primary;
+        color: @color-primary;
         text-decoration: none;
+        font-weight: bold;
     } 
 
 
     #navigation-burger:hover {
         background-color: transparent;
     }
-    
+
+
 }
 
 #navigation-burger {
@@ -46,12 +72,18 @@
 
 @media (max-width: 1000px) {
 
+    .navigation-items {
+        justify-content: start;
+    }
+
     .navigation-items > a {
         display: none;
+        color: @color-contrast;
     }
 
     #navigation-burger {
         display: block;
+        color: @color-primary;
     }
 
     .navigation-burger-menu {
@@ -74,11 +106,10 @@
         gap: 50px;
 
         a {
-            display: block;
-            outline: 2px solid @font-primary;
+            outline: 2px solid @color-primary;
             width: 80vw;
             height: 5vh;
-            background-color: @bg-primary;
+            background-color: @bg-contrast;
 
             display: flex;
             align-items: center;
@@ -92,10 +123,4 @@
         }
     }
 
-}
-
-@media (max-width: 600px) {
-    .navigation-bar {
-        width: 85vw;
-    }
 }

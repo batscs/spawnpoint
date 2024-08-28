@@ -1,4 +1,9 @@
 extends fragments/structure
 
 append content
-    h1 hii
+    form(action="/admin/authenticate", method="post")
+        input(type="text")
+        input(type="submit")
+
+append script
+    script(src="/static/js/home/fragments/authenticate.js")

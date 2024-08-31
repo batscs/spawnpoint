@@ -1,19 +1,20 @@
 // src/server.ts
 
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import bodyParser from "body-parser";
 import path from "node:path";
 import less from 'less-middleware';
-import router_homepage from './middleware/routes/homepage';
+import cookieParser from "cookie-parser";
 
+import router_homepage from './middleware/routes/homepage';
 import router_admin from './middleware/routes/admin';
 import router_api from './middleware/routes/api';
 import logger from './middleware/log/logger';
 
-const cookieParser = require('cookie-parser')
 const app = express();
 const port = 3000;
 
+// Less Stylesheet
 const lessSrcPath = path.join(__dirname, '../../frontend/less');
 const cssDestPath = path.join(__dirname, '../../frontend/css');
 // Use less-middleware to compile LESS files to CSS
@@ -22,7 +23,10 @@ app.use('/static/css', less(lessSrcPath, {
     force: true,
 }));
 
+// CookieParser
 app.use(cookieParser());
+
+// BodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('views', path.join(__dirname, '../../frontend/pug'));

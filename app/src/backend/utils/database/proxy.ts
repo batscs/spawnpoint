@@ -25,4 +25,12 @@ export default class DatabaseProxy {
     static getProjects(): project[] {
         return DatabaseProxy.getCachedResult("getProjects", db.getProjects);
     }
+
+    static getProjectById(projectId: string): project | null{
+        return this.getProjects().find(p => p.id === projectId) || null;
+    }
+
+    static saveProject(project: project) {
+        db.saveProject(project);
+    }
 };

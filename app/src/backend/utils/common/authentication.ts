@@ -28,8 +28,6 @@ export default class Authentication {
 
     static authenticateToken(token: string): boolean {
 
-        console.log("authenticating" + token);
-
         // Iterate through the Set and check if the token exists
         for (let entry of this.tokenSet) {
             if (entry.token === token) {

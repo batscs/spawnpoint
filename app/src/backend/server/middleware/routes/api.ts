@@ -59,7 +59,7 @@ router.post('/admin/project/:id', upload.any(), (req: Request, res: Response) =>
             topics: req.body.topics,
             categories: req.body.categories,
             description: req.body.description,
-            isPublished: req.body.isPublished,
+            isPublished: true,
             startDate: req.body.startDate,
             endDate: req.body.endDate,
             source: req.body.source,

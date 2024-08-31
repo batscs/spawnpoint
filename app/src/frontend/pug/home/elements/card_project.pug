@@ -1,5 +1,5 @@
 a.card-project-wrapper(href="/project/" + project.id)
-    img.img(src=project.banner)
+    img.img(src="/static/resources/projects/" + project.banner)
     div.info
         p.name.text-big=project.name
         p=project.startDate + " - " + project.endDate

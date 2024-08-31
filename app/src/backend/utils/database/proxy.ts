@@ -1,7 +1,7 @@
 import db from "./controller";
 
 export default class DatabaseProxy {
-    private static cacheTTL: number = 1 * 60 * 1000; // Cache-Zeit in Millisekunden (1 Minute)
+    private static cacheTTL: number = 1000; //1 * 60 * 1000; // Cache-Zeit in Millisekunden (1 Minute)
     private static cache: Map<string, { data: any, timestamp: number }> = new Map();
 
     private static getCachedResult(functionName: string, dbFunction: () => any): any {

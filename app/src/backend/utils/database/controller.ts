@@ -28,7 +28,7 @@ const openFile = (filename : string): string => {
 
 const writeFile = (filename: string, data: [] | {}) => {
     // Build dynamic file path
-    const pathToFile = path.join('data', `${filename}.json`);
+    const pathToFile = path.join('data', "database", `${filename}.json`);
 
     // Write data to file
     fs.writeFileSync(pathToFile, JSON.stringify(data));

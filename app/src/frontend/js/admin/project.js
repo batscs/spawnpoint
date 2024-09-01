@@ -1,8 +1,15 @@
 const form = document.getElementById("form");
 const save = document.getElementById("save");
+
+document.getElementById('banner').addEventListener('change', function() {
+    const fileName = this.files[0] ? this.files[0].name : 'Upload Banner';
+    document.getElementById('file-name').textContent = fileName;
+});
+
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
     // TODO Eventuell save button disablen bis response vom server zurück ist
+    save.disable = true;
 
     const name = document.querySelector("[name='name']").value;
     const topics = document.querySelector("[name='topics']").value.split(",").map(e => e.trim());
@@ -17,8 +24,6 @@ form.addEventListener("submit", async (e) => {
 
     try {
         const formData = new FormData();
-
-        console.log(formData);
 
         formData.append("name", name);
         formData.append("topics", topics);
@@ -37,6 +42,7 @@ form.addEventListener("submit", async (e) => {
         });
 
         const data = await response.json();
+        save.disable = false;
 
         if (data.error) {
             alert("error: " + data.error);

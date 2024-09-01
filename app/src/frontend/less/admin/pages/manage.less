@@ -9,8 +9,13 @@ table {
     color: black;
   }
 
+  img {
+    height: 35px;
+  }
+
   th,td {
     padding: 10px 50px;
+    vertical-align: middle;
   }
 
   tr:has(th) {
@@ -44,5 +49,11 @@ table {
       padding: 2px;
       border-radius: 7px;
     }
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .no-mobile {
+    display: none;
   }
 }

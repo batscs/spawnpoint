@@ -21,11 +21,23 @@ router.get('/admin/panel', (req: Request, res: Response) => {
     }
 });
 
+router.get('/admin/logout', (req: Request, res: Response) => {
+    res.clearCookie("token");
+    res.redirect("/admin/");
+});
+
 router.get('/admin/manage', (req: Request, res: Response) => {
     if(req.cookies && auth.authenticateToken(req.cookies["token"])) {
         let projects = db.getProjects();
-
         res.render("admin/manage", {projects})
+    } else {
+        res.redirect("/admin?error=" + encodeURIComponent("Incorrect username or password"));
+    }
+});
+
+router.get('/admin/create', (req: Request, res: Response) => {
+    if(req.cookies && auth.authenticateToken(req.cookies["token"])) {
+        res.render("admin/create")
     } else {
         res.redirect("/admin?error=" + encodeURIComponent("Incorrect username or password"));
     }

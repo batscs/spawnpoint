@@ -25,12 +25,13 @@ append content
         input(type="text", name="source", value=project.source)
         a preview
         input(type="text", name="preview", value=project.preview)
-        a isPublished
-        input(type="checkbox", name="published", checked=project.isPublished)
+        div.flex-row.gap-10px
+            a isPublished
+            input(type="checkbox", name="published", checked=project.isPublished)
         a banner
-        input(type="file", name="banner")
+        input(type="file", id="banner", name="banner")
+        label#file-name.fake-input(for="banner") 📁 Upload Banner
         input#save(type="submit", value="Save")
-    a#blog(href="/admin/blog/" + project.id)
     //input#delete(type="button", value="Delete")
 
 append script

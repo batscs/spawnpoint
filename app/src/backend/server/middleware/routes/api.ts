@@ -85,5 +85,39 @@ router.post('/admin/project/:id', upload.any(), (req: Request, res: Response) =>
     }
 });
 
+router.post('/admin/create', upload.any(), (req: Request, res: Response) => {
+
+    if (!req.cookies || !auth.authenticateToken(req.cookies["token"])) {
+        res.send({ error: "unauthorized" });
+    } else {
+        // Check if a banner file has been uploaded
+        let banner : string = "";
+        if (req.files && req.files.length == 1) {
+            if (Array.isArray(req.files)) {
+                banner = req.files[0].filename;
+            }
+        }
+
+        const id = auth.generateToken();
+
+        const project: project = {
+            id: id,
+            name: req.body.name,
+            topics: req.body.topics.split(","),
+            categories: req.body.categories.split(","),
+            description: req.body.description,
+            isPublished: req.body.published === "true",
+            startDate: req.body.startDate,
+            endDate: req.body.endDate,
+            source: req.body.source,
+            preview: req.body.preview,
+            banner: banner
+        }
+
+        db.saveProject(project);
+        res.redirect("/admin/project/" + id);
+    }
+});
+
 
 export default router;

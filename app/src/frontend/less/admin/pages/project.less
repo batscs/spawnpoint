@@ -1,11 +1,15 @@
 @import "../variables.less";
 
+.content {
+  justify-content: center;
+}
+
 form {
   display: flex;
   flex-direction: column;
   width: 800px;
 
-  input, textarea {
+  input, textarea, .fake-input {
     margin-bottom: 20px;
   }
 
@@ -19,10 +23,30 @@ form {
     font-weight: bold;
   }
 
+  #banner {
+    display: none;
+  }
+
+  .fake-input {
+    width: 100%;
+    background-color: white;
+    text-align: center;
+    padding: 5px;
+  }
+
+  .fake-input:hover {
+    cursor: pointer;
+  }
+
 }
 
 #save {
   background-color: green;
+  cursor: pointer;
+}
+
+#save:hover {
+  background-color: lightgreen;
 }
 
 #delete {

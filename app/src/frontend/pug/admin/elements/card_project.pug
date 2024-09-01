@@ -1,14 +1,16 @@
 tr
+    td.no-mobile
+        img(src="/static/resources/projects/" + project.banner)
     td
         a.name(href="/admin/project/" + project.id)=project.name
-    td
+    td.no-mobile
         if project.isPublished
             a Public
         else
             a Private
-    td
+    td.no-mobile
         a=project.startDate
-    td
+    td.no-mobile
         a=project.endDate
     td
         div.options

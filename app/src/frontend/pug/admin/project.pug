@@ -5,29 +5,33 @@ append style
 
 append content
     form#form(enctype="multipart/form-data")
-        a name
-        input(type="text", name="name", value=project.name)
+        div.flex-row.gap-20px
+            div.flex-column.flex-grow
+                a name
+                input(type="text", minlength=1, name="name", value=project.name)
+            div.flex-column
+                a start
+                input(type="date", name="startDate", value=project.startDate)
+            div.flex-column
+                a end
+                input(type="date", name="endDate", value=project.endDate)
         a topics
         input(type="text", name="topics", value=project.topics.join(","))
         a categories
         input(type="text", name="categories", value=project.categories.join(","))
         a description
         textarea(name="description")=project.description
-        a start
-        input(type="date", name="startDate", value=project.startDate)
-        a end
-        input(type="date", name="endDate", value=project.endDate)
         a source
         input(type="text", name="source", value=project.source)
         a preview
         input(type="text", name="preview", value=project.preview)
         a isPublished
-        input(type="checkbox", name="published", value=project.isPublished)
+        input(type="checkbox", name="published", checked=project.isPublished)
         a banner
         input(type="file", name="banner")
         input#save(type="submit", value="Save")
     a#blog(href="/admin/blog/" + project.id)
-    input#delete(type="button", value="Delete")
+    //input#delete(type="button", value="Delete")
 
 append script
     script(src="/static/js/admin/project.js")

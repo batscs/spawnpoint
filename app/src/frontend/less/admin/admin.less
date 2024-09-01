@@ -1,15 +1,36 @@
 @import "variables.less";
 
 body {
-  background-color: #202020;
+  background-color: @bg-primary;
+  display: flex;
+  flex-direction: row;
 }
 
 * {
   font-family: @font-primary;
 }
 
+input, textarea {
+  padding: 7px;
+  border: 2px solid black;
+  outline: none;
+  border-radius: 7px;
+}
+
+a {
+  color: white;
+}
+
 .content {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
+
+  flex-grow: 1;
+
+  overflow-y: scroll;
+
+  padding: 20px;
+  box-sizing: border-box;
 }

@@ -1,0 +1,48 @@
+@import "../variables.less";
+
+table {
+
+  flex-grow: 1;
+
+  border-spacing: 0;
+  a {
+    color: black;
+  }
+
+  th,td {
+    padding: 10px 50px;
+  }
+
+  tr:has(th) {
+    background-color: @accent;
+    color: white;
+  }
+
+  tr:not(:has(th)) {
+    background-color: lighten(@accent, 60%);
+    color: white;
+  }
+
+  tr:hover:not(:has(th)) {
+    background-color: lighten(@accent, 30%);
+  }
+
+  .name {
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100px;
+
+    a {
+      text-decoration: none;
+      background-color: @accent;
+      padding: 2px;
+      border-radius: 7px;
+    }
+  }
+}

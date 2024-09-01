@@ -2,16 +2,20 @@
 import { Router, Request, Response } from 'express';
 const router = Router();
 import auth from "../../../utils/common/authentication";
-import db from "../../../utils/database/proxy";
+import db from "../../../utils/database/controller";
 import date from "../../../utils/common/date";
 
 router.get('/admin/', (req: Request, res: Response) => {
-    res.render("admin/index");
+    if(req.cookies && auth.authenticateToken(req.cookies["token"])) {
+        res.redirect("/admin/panel");
+    } else {
+        res.render("admin/index", {lightweight: true});
+    }
 });
 
 router.get('/admin/panel', (req: Request, res: Response) => {
     if(req.cookies && auth.authenticateToken(req.cookies["token"])) {
-        res.send("logged in!")
+        res.render("admin/panel")
     } else {
         res.redirect("/admin?error=" + encodeURIComponent("Incorrect username or password"));
     }

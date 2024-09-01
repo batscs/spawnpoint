@@ -2,8 +2,8 @@
 import { Router, Request, Response } from 'express';
 const router = Router();
 import auth from "../../../utils/common/authentication";
-import db from "../../../utils/database/proxy";
-import multer from 'multer';
+import db from "../../../utils/database/controller";
+import multer, {FileFilterCallback} from 'multer';
 import path from 'path';
 
 // Set up storage for uploaded files
@@ -16,8 +16,18 @@ const storage = multer.diskStorage({
     }
 });
 
+// TODO Upload Filter falls logged in nur
+const fileFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
+    if (!req.cookies || !auth.authenticateToken(req.cookies["token"])) {
+        console.log("DEBUG Multer: Unauthroized upload attempted");
+        return cb(null, false);
+    } else {
+        return cb(null, true);
+    }
+}
+
 // Initialize multer with storage configuration
-const upload = multer({ storage: storage });
+const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 router.post('/admin/authenticate', (req: Request, res: Response) => {
     const password = req.body.password;
@@ -53,13 +63,15 @@ router.post('/admin/project/:id', upload.any(), (req: Request, res: Response) =>
             }
         }
 
+        console.log(req.body.published);
+
         const project: project = {
             id: id,
             name: req.body.name,
-            topics: req.body.topics,
-            categories: req.body.categories,
+            topics: req.body.topics.split(","),
+            categories: req.body.categories.split(","),
             description: req.body.description,
-            isPublished: true,
+            isPublished: req.body.published === "true",
             startDate: req.body.startDate,
             endDate: req.body.endDate,
             source: req.body.source,

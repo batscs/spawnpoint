@@ -1,1 +1,1 @@
-form{display:flex;flex-direction:column;width:800px}form input{padding:7px;margin-bottom:20px}form a{color:white;font-weight:bold}input{border:2px solid black;outline:none}#save{background-color:green}#delete{margin-top:20px;width:100%;background-color:red}
+form{display:flex;flex-direction:column;width:800px}form input,form textarea{margin-bottom:20px}form textarea{resize:vertical;min-height:40px}form a{color:white;font-weight:bold}#save{background-color:green}#delete{margin-top:20px;width:100%;background-color:red}

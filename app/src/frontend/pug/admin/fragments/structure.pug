@@ -4,8 +4,10 @@ append style
     link(rel="stylesheet", href="/static/css/admin/admin.css")
 
 append body
+    include navigation.pug
     div.content
         block content
+
 
 append script
     script(src="/static/js/external/jquery.js")

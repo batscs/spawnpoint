@@ -1,2 +1,17 @@
-a(href="/admin/project/" + project.id)
-    p.name.text-big=project.name
+tr
+    td
+        a.name(href="/admin/project/" + project.id)=project.name
+    td
+        if project.isPublished
+            a Public
+        else
+            a Private
+    td
+        a=project.startDate
+    td
+        a=project.endDate
+    td
+        div.options
+            a(href="/admin/project/" + project.id) ✏️️
+            a(href="/admin/blog/" + project.id) 📖
+            a(href="/admin/delete/" + project.id) 🗑️

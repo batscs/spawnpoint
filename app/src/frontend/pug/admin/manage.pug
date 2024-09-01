@@ -1,5 +1,16 @@
 extends fragments/structure
 
+append style
+    link(rel="stylesheet", href="/static/css/admin/elements/card_project.css")
+    link(rel="stylesheet", href="/static/css/admin/pages/manage.css")
+
 append content
-    each project in projects
-        include elements/card_project.pug
+    table
+        tr
+            th Project Name
+            th Visibility
+            th Start Date
+            th End Date
+            th Options
+        each project in projects
+            include elements/card_project.pug

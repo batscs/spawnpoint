@@ -15,7 +15,7 @@ import "./types";
 const openFile = (filename : string): string => {
     // Pfad aufgrund unterschiedlicher Slashes bei Ordnerpfaden (Windows vs. Unix) dynamisch aufbauen
     const pathToFile = path.join('data', "database", `${filename}.json`);
-    console.log("Database Debug: Opening file: " + pathToFile);
+    console.log("DEBUG Database-Controller: Opening file: " + pathToFile);
 
     // Datei-Inhalt mit der UTF8-Zeichenkodierung interpretieren
     const options = { encoding: 'utf8' };
@@ -59,6 +59,10 @@ export default class DatabaseController {
         }
 
         return result;
+    }
+
+    static getProjectById(projectId: string): project | null{
+        return this.getProjects().find(p => p.id === projectId) || null;
     }
 
     static saveProject(project: project) {

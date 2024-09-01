@@ -5,9 +5,13 @@ form {
   flex-direction: column;
   width: 800px;
 
-  input {
-    padding: 7px;
+  input, textarea {
     margin-bottom: 20px;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 40px;
   }
 
   a {
@@ -15,11 +19,6 @@ form {
     font-weight: bold;
   }
 
-}
-
-input {
-  border: 2px solid black;
-  outline: none;
 }
 
 #save {

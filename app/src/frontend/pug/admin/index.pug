@@ -1,9 +1,10 @@
 extends fragments/structure
 
 append content
-    form(action="/admin/authenticate", method="post")
-        input(type="text")
-        input(type="submit")
+    form.flex-column.gap-10px(action="/admin/authenticate", method="post")
+        a Password:
+        input(type="text" placeholder="password...")
+        input(type="submit" value="login")
 
 append script
     script(src="/static/js/home/fragments/authenticate.js")

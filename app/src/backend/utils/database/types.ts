@@ -11,3 +11,7 @@ type project = {
     source: string,
     preview: string,
 }
+
+type config = {
+    password: string
+}

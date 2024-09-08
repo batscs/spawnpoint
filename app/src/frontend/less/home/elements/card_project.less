@@ -38,11 +38,19 @@
 
     .name {
         font-weight: bold;
+        flex-shrink: 0;
+        padding-bottom: 5px;
     }
 
     .topics {
         display: flex;
         flex-direction: row;
+        justify-content: center;
         gap: 10px;
+        flex-wrap: wrap;
+        flex-grow: 1;
+        padding-top: 5px;
+        line-height: 1.1;
+        height: 3em;
     }
 }

@@ -1,5 +1,6 @@
 import crypto from "crypto";
 import {strict} from "node:assert";
+import db from "../database/controller"
 
 type TokenEntry = {
     token: string;
@@ -40,8 +41,12 @@ export default class Authentication {
     }
 
     static verifyPassword(password: string): boolean {
-        // TODO DB verwenden um password zu prüfen
-        return true;
+        // @ts-ignore
+        const config : config = db.getConfig();
+        console.log(config);
+        console.log(config.password);
+
+        return password == config?.password;
     }
 
     private static cleanupOldTokens(): void {

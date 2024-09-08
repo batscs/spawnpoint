@@ -18,7 +18,16 @@ router.get('/work', (req: Request, res: Response) => {
         return -1 * date.compareDates(left.startDate, right.startDate);
     });
 
-    res.render('home/work', {projects});
+    let topics = new Set<string>();
+
+    projects.forEach(project => {
+        project.topics.forEach(topic => {
+            topics.add(topic);
+            console.log(topics.size);
+        })
+    });
+
+    res.render('home/work', {projects: projects, topics: Array.from(topics)});
 });
 
 export default router;

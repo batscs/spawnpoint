@@ -5,6 +5,7 @@ import auth from "../../../utils/common/authentication";
 import db from "../../../utils/database/controller";
 import multer, {FileFilterCallback} from 'multer';
 import path from 'path';
+import date from "../../../utils/common/date";
 
 // Set up storage for uploaded files
 const storage = multer.diskStorage({
@@ -83,6 +84,44 @@ router.post('/admin/project/:id', upload.any(), (req: Request, res: Response) =>
         db.saveProject(project);
         res.send({ success: true });
     }
+});
+
+router.get("/api/html/project/:projectid", (req: Request, res: Response) => {
+    const id = req.params.projectid;
+    let project = db.getProjectById(id);
+    res.render("home/elements/card_project", {project});
+});
+
+router.post('/api/work', (req: Request, res: Response) => {
+    const filter = req.body.filter; // topic
+    let projects = db.getProjects();
+
+    projects = projects.filter(project => project.isPublished);
+
+    projects = projects.sort((left, right) : number => {
+        return -1 * date.compareDates(left.startDate, right.startDate);
+    });
+
+    if (filter) {
+        projects = projects.filter(projects => projects.topics.includes(filter));
+    }
+
+    res.send({projects: projects});
+});
+
+// TODO kann gelöscht werden
+router.get("/api/topics", (req: Request, res: Response) => {
+    let topics = new Set<string>();
+    let projects = db.getProjects();
+    projects = projects.filter(project => project.isPublished);
+
+    projects.forEach(project => {
+       project.topics.forEach(topic => {
+           topics.add(topic);
+       })
+    });
+
+    res.send({topics: Array.from(topics)});
 });
 
 router.post('/admin/create', upload.any(), (req: Request, res: Response) => {

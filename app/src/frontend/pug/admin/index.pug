@@ -3,7 +3,7 @@ extends fragments/structure
 append content
     form.flex-column.gap-10px(action="/admin/authenticate", method="post")
         a Password:
-        input(type="text" placeholder="password...")
+        input(type="text" name="password" placeholder="password...")
         input(type="submit" value="login")
 
 append script

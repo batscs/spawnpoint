@@ -4,7 +4,13 @@ append style
     link(rel="stylesheet", href="/static/css/home/pages/work.css")
     link(rel="stylesheet", href="/static/css/home/elements/card_project.css")
 
+append script
+    script(src="/static/js/home/work.js")
+
 append content
+    div.project-topics
+        each topic in topics
+            a=topic
     div.projects.flex-row.gap-40px
         each project in projects 
             include elements/card_project.pug

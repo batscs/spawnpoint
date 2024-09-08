@@ -1,7 +1,7 @@
 export default class DateTimeUtils {
 
     static parseDate(dateStr: string): Date {
-        const [day, month, year] = dateStr.split('.').map(Number);
+        const [month, day, year] = dateStr.split('-').map(Number);
         return new Date(year, month - 1, day);
     }
 

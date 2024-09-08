@@ -43,8 +43,6 @@ export default class Authentication {
     static verifyPassword(password: string): boolean {
         // @ts-ignore
         const config : config = db.getConfig();
-        console.log(config);
-        console.log(config.password);
 
         return password == config?.password;
     }

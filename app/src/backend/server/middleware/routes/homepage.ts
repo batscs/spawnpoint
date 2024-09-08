@@ -23,11 +23,11 @@ router.get('/work', (req: Request, res: Response) => {
     projects.forEach(project => {
         project.topics.forEach(topic => {
             topics.add(topic);
-            console.log(topics.size);
         })
     });
 
-    res.render('home/work', {projects: projects, topics: Array.from(topics)});
+
+    res.render('home/work', {projects: projects, topics: Array.from(topics).sort()});
 });
 
 export default router;

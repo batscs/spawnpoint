@@ -33,6 +33,7 @@ app.set('views', path.join(__dirname, '../../frontend/pug'));
 app.set('view engine', 'pug');
 
 // Static File-Serving
+app.use('/favicon.ico', express.static(path.join(__dirname, "../../../data/resources/socials/favicon.png")));
 app.use('/static/css', express.static(path.join(__dirname, "../../frontend/css")));
 app.use('/static/js', express.static(path.join(__dirname, "../../frontend/js")));
 app.use('/static/resources', express.static(path.join(__dirname, "../../../data/resources")));

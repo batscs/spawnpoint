@@ -3,6 +3,7 @@ import { Router, Request, Response } from 'express';
 const router = Router();
 import auth from "../../../utils/common/authentication";
 import db from "../../../utils/database/controller";
+import dbp from "../../../utils/database/proxy";
 import multer, {FileFilterCallback} from 'multer';
 import path from 'path';
 import date from "../../../utils/common/date";
@@ -64,8 +65,6 @@ router.post('/admin/project/:id', upload.any(), (req: Request, res: Response) =>
             }
         }
 
-        console.log(req.body.published);
-
         const project: project = {
             id: id,
             name: req.body.name,
@@ -80,7 +79,6 @@ router.post('/admin/project/:id', upload.any(), (req: Request, res: Response) =>
             banner: banner
         }
 
-        console.log("final banner: " + banner);
         db.saveProject(project);
         res.send({ success: true });
     }
@@ -94,7 +92,7 @@ router.get("/api/html/project/:projectid", (req: Request, res: Response) => {
 
 router.post('/api/work', (req: Request, res: Response) => {
     const filter = req.body.filter; // topic
-    let projects = db.getProjects();
+    let projects = dbp.getProjects();
 
     projects = projects.filter(project => project.isPublished);
 
@@ -107,21 +105,6 @@ router.post('/api/work', (req: Request, res: Response) => {
     }
 
     res.send({projects: projects});
-});
-
-// TODO kann gelöscht werden
-router.get("/api/topics", (req: Request, res: Response) => {
-    let topics = new Set<string>();
-    let projects = db.getProjects();
-    projects = projects.filter(project => project.isPublished);
-
-    projects.forEach(project => {
-       project.topics.forEach(topic => {
-           topics.add(topic);
-       })
-    });
-
-    res.send({topics: Array.from(topics)});
 });
 
 router.post('/admin/create', upload.any(), (req: Request, res: Response) => {

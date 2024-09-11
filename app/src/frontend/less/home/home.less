@@ -13,6 +13,18 @@ body {
 
 * {
     font-family: @font-primary;
+    scrollbar-color: @bg-contrast @bg-primary;
+    scrollbar-width: thin;
+}
+
+.seperator {
+    width: 95%;
+    height: 5px;
+    background-color: @bg-contrast;
+    flex-shrink: 0;
+    margin: 5px 0;
+    margin-bottom: 20px;
+    border-radius: @border-radius-normal;
 }
 
 .content {

@@ -28,11 +28,17 @@
     max-width: 80vw;
     flex-wrap: wrap;
 
+    max-height: 120px;
+    min-height: 120px;
+    overflow-y: auto;
+
+    margin-bottom: 20px;
+
     a {
         background-color: @bg-accent;
-        color: @color-primary;
+        color: @color-accent;
+        border-radius: @border-radius-normal;
+        height: min-content;
         padding: 5px 10px;
-        border-radius: 4px;
     }
 }
-

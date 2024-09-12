@@ -1,8 +1,8 @@
-a.hero-hover.card-project-wrapper(href="/project/" + project.id)
+a.card-project-wrapper(href="/project/" + project.id)
     img.img(src="/static/resources/projects/" + project.banner)
     div.info
         p.name.text-big=project.name
         p=project.startDate + " - " + project.endDate
-        div.topics
-            for detail in project.details
-                p=detail
+    div.topics
+        for detail in project.details
+            p=detail

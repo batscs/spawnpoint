@@ -7,6 +7,7 @@
 .projects {
     // TODO background-color: #FFD9FF; // FFA0AA oder FFD9FF
     max-width: @max-width;
+    width: 100%;
 
     height: max-content;
 
@@ -31,16 +32,10 @@
 
 .project-topics {
 
-    .selected {
-        background-color: @bg-highlight;
-    }
-
     max-width: @max-width;
 
     display: flex;
     flex-direction: row;
-    gap: 20px;
-    justify-content: space-between;
     font-weight: bold;
     font-size: 20px;
     cursor: pointer;
@@ -52,23 +47,38 @@
     overflow-y: auto;
 
     margin-bottom: 20px;
+    padding-top: 10px;
 
     a {
-        background-color: @bg-contrast;
-        color: @color-accent;
-        border-radius: @border-radius-normal;
+        border: 3px solid @bg-contrast;
+        color: @color-primary;
         height: min-content;
-        padding: 5px 10px;
+        padding: 10px 20px;
+        transition: 0.1s;
+        font-size: 30px;
+    }
+
+    a:hover, .selected {
+        background-color: @bg-contrast;
+        color: @color-highlight;
+    }
+
+    .selected {
+        transform: rotate(2deg);
     }
 
     a:hover {
-        background-color: @bg-highlight;
-        color: @color-highlight;
+        transform: rotate(-2deg);
     }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
     .project-topics a {
         font-size: 16px;
+        padding: 10px 10px;
+    }
+
+    .projects {
+        justify-content: center;
     }
 }

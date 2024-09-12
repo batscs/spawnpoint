@@ -93,6 +93,7 @@
         background-color: @bg-primary;
         width: 100vw;
         height: 100vh;
+        z-index: 100;
 
         position:fixed;
 
@@ -107,11 +108,13 @@
 
         gap: 50px;
 
+
         a {
             outline: 2px solid @color-primary;
+            background-color: @bg-contrast;
             width: 80vw;
             height: 5vh;
-
+            border-radius: @border-radius-normal;
             display: flex;
             align-items: center;
             justify-content: center;

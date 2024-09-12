@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Get all the topic links and the projects container
     const topicLinks = document.querySelectorAll('.project-topics a');
     const projectsContainer = document.querySelector('.projects');
+    const defaultTopic = "software";
 
     // Function to handle topic selection
     function handleTopicClick(topic) {

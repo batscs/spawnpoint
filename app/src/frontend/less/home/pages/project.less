@@ -13,18 +13,23 @@
   img {
     max-width: 100%;
     border-radius: @border-radius-normal;
+    margin: 10px 0;
   }
 
   code, pre {
-    background-color: gray;
+    background-color: #202020;
     font-family: 'Roboto Mono', sans-serif;
     padding: 2px;
     border-radius: @border-radius-normal;
     overflow-x: auto;
+    outline: none;
   }
 
   pre {
     padding: 10px;
+    border-bottom: 2px dashed white;
+    border-top: 2px dashed white;
+    outline: none;
   }
 
   blockquote {
@@ -33,6 +38,11 @@
     color: lightgray;
     padding-left: 15px;
     margin-left: 5px;
+  }
+
+  hr {
+    margin: 10px 0;
+    background-color: @color-primary;
   }
 }
 

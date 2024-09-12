@@ -15,11 +15,11 @@ append content
             div.flex-column
                 a end
                 input(type="date", name="endDate", value=project.endDate)
-        a topics
+        a topics (csv)
         input(type="text", name="topics", value=project.topics.join(","))
-        a categories
-        input(type="text", name="categories", value=project.categories.join(","))
-        a description
+        a details (csv)
+        input(type="text", name="details", value=project.details.join(","))
+        a description (markdown)
         textarea(name="description")=project.description
         a source
         input(type="text", name="source", value=project.source)

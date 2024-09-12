@@ -13,7 +13,7 @@ form.addEventListener("submit", async (e) => {
 
     const name = document.querySelector("[name='name']").value;
     const topics = document.querySelector("[name='topics']").value.split(",").map(e => e.trim());
-    const categories = document.querySelector("[name='categories']").value.split(",").map(e => e.trim());
+    const details = document.querySelector("[name='details']").value.split(",").map(e => e.trim());
     const description = document.querySelector("[name='description']").value;
     const startDate = document.querySelector("[name='startDate']").value;
     const endDate = document.querySelector("[name='endDate']").value;
@@ -27,7 +27,7 @@ form.addEventListener("submit", async (e) => {
 
         formData.append("name", name);
         formData.append("topics", topics);
-        formData.append("categories", categories);
+        formData.append("details", details);
         formData.append("description", description);
         formData.append("startDate", startDate);
         formData.append("endDate", endDate);

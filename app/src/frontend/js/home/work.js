@@ -1,8 +1,40 @@
-// Wait until the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function () {
-    // Get all the topic links
+    // Default topic to load when the page loads
+    // Get all the topic links and the projects container
     const topicLinks = document.querySelectorAll('.project-topics a');
     const projectsContainer = document.querySelector('.projects');
+
+    // Function to handle topic selection
+    function handleTopicClick(topic) {
+        // Fetch projects based on the selected topic
+
+        const body = topic === "all" ? {} : {filter: topic};
+
+        fetch('/api/work', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body) // Send the selected topic as a filter
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Clear the projects container
+                projectsContainer.innerHTML = '';
+
+                // Fetch and append each project's HTML content
+                data.projects.forEach(project => {
+                    fetch(`/api/html/project/${project.id}`)
+                        .then(response => response.text()) // We expect HTML content
+                        .then(html => {
+                            // Directly append the HTML
+                            projectsContainer.insertAdjacentHTML('beforeend', html);
+                        })
+                        .catch(error => console.error('Error fetching project HTML:', error));
+                });
+            })
+            .catch(error => console.error('Error fetching projects:', error));
+    }
 
     // Attach click event listeners to each topic link
     topicLinks.forEach(link => {
@@ -11,31 +43,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const topic = this.textContent.trim(); // Get the topic text
 
-            // Fetch projects based on the selected topic
-            fetch('/api/work', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ filter: topic }) // Send the selected topic as a filter
-            })
-                .then(response => response.json())
-                .then(data => {
-                    // Clear the projects container
-                    projectsContainer.innerHTML = '';
+            // Remove the .selected class from all links
+            topicLinks.forEach(link => link.classList.remove('selected'));
 
-                    // For each project ID, fetch its corresponding HTML content
-                    data.projects.forEach(project => {
-                        fetch(`/api/html/project/${project.id}`)
-                            .then(response => response.text()) // We expect HTML content
-                            .then(html => {
-                                // Directly append the HTML without wrapping it in a div
-                                projectsContainer.insertAdjacentHTML('beforeend', html);
-                            })
-                            .catch(error => console.error('Error fetching project HTML:', error));
-                    });
-                })
-                .catch(error => console.error('Error fetching projects:', error));
+            // Add the .selected class to the clicked link
+            this.classList.add('selected');
+
+            // Fetch projects for the selected topic
+            handleTopicClick(topic);
         });
     });
+
+    // Automatically load the default topic when the page loads
+    const defaultLink = Array.from(topicLinks).find(link => link.textContent.trim() === defaultTopic);
+    if (defaultLink) {
+        defaultLink.classList.add('selected'); // Add .selected to the default topic
+        handleTopicClick(defaultTopic); // Load the projects for the default topic
+    }
 });

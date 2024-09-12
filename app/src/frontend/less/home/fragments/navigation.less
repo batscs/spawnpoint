@@ -1,7 +1,6 @@
 @import "../variables.less";
 
 .navigation-wrapper {
-    background-color: @bg-primary;
     max-width: @max-width;
     width: 100%;
 
@@ -12,6 +11,12 @@
 
     box-sizing: border-box;
 
+}
+
+.hero-hover {
+    color: @color-primary;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 .hero-hover:hover {
@@ -106,7 +111,6 @@
             outline: 2px solid @color-primary;
             width: 80vw;
             height: 5vh;
-            background-color: @bg-contrast;
 
             display: flex;
             align-items: center;

@@ -1,26 +1,38 @@
 @import "../variables.less";
 
+.card-project-wrapper:hover {
+    .topics p {
+        background-color: @bg-primary;
+        color: @color-primary;
+    }
+}
+
 .card-project-wrapper {
 
     width: 350px;
-    height: 370px;
+    height: 280px;
 
-    background-color: @bg-accent;
-    box-shadow: @box-shadow-normal;
     border-radius: @border-radius-normal;
+    border: 4px solid @bg-contrast;
     color: @color-accent;
 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
     padding: 20px;
+
+    flex-grow: 1;
 
     text-decoration: none;
 
     .img {
-        height: 55%;
-        width: 100%;
+        height: 100px;
+        flex-shrink: 0;
         background-color: @color-primary;
 
-        outline: solid 2px @color-primary;
-        border-radius: @border-radius-normal;
+        outline: solid 1px @color-primary;
     }
 
     .info {
@@ -39,7 +51,9 @@
     .name {
         font-weight: bold;
         flex-shrink: 0;
-        padding-bottom: 5px;
+        text-align: center;
+        max-width: 100%;
+        width: max-content;
     }
 
     .topics {

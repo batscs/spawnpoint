@@ -1,7 +1,7 @@
 type project = {
     id: string,
     topics: string[],
-    categories: string[],
+    details: string[],
     name: string,
     description: string,
     banner: string,

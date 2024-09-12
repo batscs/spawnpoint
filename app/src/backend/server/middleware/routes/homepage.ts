@@ -3,9 +3,24 @@ import { Router, Request, Response } from 'express';
 const router = Router();
 import date from "../../../utils/common/date";
 import db from "../../../utils/database/proxy";
+const marked = require('marked');
 
 router.get('/', (req: Request, res: Response) => {
     res.render("home/index");
+});
+
+router.get('/about', (req: Request, res: Response) => {
+    res.render("home/about");
+});
+
+router.get('/project/:id', (req: Request, res: Response) => {
+    const id = req.params.id;
+    const project = db.getProjectById(id);
+
+    // TODO Abfangen ob project == null
+
+    const markdown = marked.parse(project?.description);
+    res.render("home/project", {project: project, markdown: markdown});
 });
 
 router.get('/work', (req: Request, res: Response) => {

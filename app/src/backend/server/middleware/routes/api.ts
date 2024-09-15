@@ -8,10 +8,19 @@ import multer, {FileFilterCallback} from 'multer';
 import path from 'path';
 import date from "../../../utils/common/date";
 
-// Set up storage for uploaded files
-const storage = multer.diskStorage({
+// Set up storageProjects for uploaded files
+const storageProjects = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './data/resources/projects/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${auth.generateToken()}.png`);
+    }
+});
+
+const storageMedia = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './data/resources/media/');
     },
     filename: (req, file, cb) => {
         cb(null, `${auth.generateToken()}.png`);
@@ -21,15 +30,16 @@ const storage = multer.diskStorage({
 // TODO Upload Filter falls logged in nur
 const fileFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
     if (!req.cookies || !auth.authenticateToken(req.cookies["token"])) {
-        console.log("DEBUG Multer: Unauthroized upload attempted");
+        console.log("DEBUG Multer: Unauthroized uploadProjects attempted");
         return cb(null, false);
     } else {
         return cb(null, true);
     }
 }
 
-// Initialize multer with storage configuration
-const upload = multer({ storage: storage, fileFilter: fileFilter });
+// Initialize multer with storageProjects configuration
+const uploadProjects = multer({ storage: storageProjects, fileFilter: fileFilter });
+const uploadMedia = multer({ storage: storageMedia, fileFilter: fileFilter });
 
 router.post('/admin/authenticate', (req: Request, res: Response) => {
     const password = req.body.password;
@@ -43,7 +53,7 @@ router.post('/admin/authenticate', (req: Request, res: Response) => {
     }
 });
 
-router.post('/admin/project/:id', upload.any(), (req: Request, res: Response) => {
+router.post('/admin/project/:id', uploadProjects.any(), (req: Request, res: Response) => {
     const id = req.params.id;
     const old: project | null = db.getProjectById(id);
 
@@ -84,6 +94,18 @@ router.post('/admin/project/:id', upload.any(), (req: Request, res: Response) =>
     }
 });
 
+router.post("/api/admin/media/upload", uploadMedia.any(), (req: Request, res: Response) => {
+
+    let filename : string = "";
+    if (req.files && req.files.length == 1) {
+        if (Array.isArray(req.files)) {
+            filename = req.files[0].filename;
+        }
+    }
+
+    res.send({ url: "/static/resources/media/" + filename });
+});
+
 router.get("/api/html/project/:projectid", (req: Request, res: Response) => {
     const id = req.params.projectid;
     let project = db.getProjectById(id);
@@ -107,7 +129,7 @@ router.post('/api/work', (req: Request, res: Response) => {
     res.send({projects: projects});
 });
 
-router.post('/admin/create', upload.any(), (req: Request, res: Response) => {
+router.post('/admin/create', uploadProjects.any(), (req: Request, res: Response) => {
 
     if (!req.cookies || !auth.authenticateToken(req.cookies["token"])) {
         res.send({ error: "unauthorized" });

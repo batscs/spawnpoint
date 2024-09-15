@@ -1,95 +1,177 @@
 @import "../variables.less";
 
-.card-project-wrapper:hover {
-    .topics p {
-        background-color: @bg-primary;
-        color: @color-primary;
-    }
+@animation-time_forward: 0.6s;
+@animation-time_backwards: 0.5s;
 
-    .info {
-        background-color: @bg-contrast;
-        color: @color-contrast;
-    }
+.card-project-wrapper:hover .info {
+    animation: frontCard @animation-time_forward forwards;
+}
 
-    background-color: @bg-contrast;
+.card-project-wrapper:hover .card-project {
+    animation: backCard @animation-time_forward forwards;
+}
+
+.card-project-wrapper:not(:hover) .info {
+    animation: frontCardReverse @animation-time_backwards forwards;
+}
+
+.card-project-wrapper:not(:hover) .card-project {
+    animation: backCardReverse @animation-time_backwards forwards;
+}
+
+@keyframes frontCard {
+    0% {
+        z-index: 2;
+        transform: scale(1);
+    }
+    50% {
+        top: 0;
+        z-index: 2;
+        transform: scale(0.95);
+    }
+    100% {
+        z-index: -9;
+        transform: scale(0.9);
+    }
+}
+
+@keyframes backCard {
+    0% {
+        transform: scale(0.95);
+        top: 0;
+    }
+    50% {
+        transform: scale(0.975);
+        top: 30px;
+    }
+    100% {
+        transform: scale(1);
+        top: 0;
+    }
+}
+
+@keyframes frontCardReverse {
+    0% {
+        z-index: -9;
+        transform: scale(0.9);
+    }
+    50% {
+        top: 0;
+        z-index: 2;
+        transform: scale(0.95);
+    }
+    100% {
+        z-index: 2;
+        transform: scale(1);
+    }
+}
+
+@keyframes backCardReverse {
+    0% {
+        transform: scale(1);
+        top: 0;
+    }
+    50% {
+        transform: scale(0.975);
+        top: 30px;
+    }
+    100% {
+        transform: scale(0.95);
+        top: 0;
+    }
 }
 
 .card-project-wrapper {
-
+    padding-top: 10px;
     width: 350px;
-    height: 400px;
 
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+
+.card-project {
+    overflow: visible;
+    background-size: 100% 100%;
+    position: relative;
     background-color: @bg-accent;
     color: @color-accent;
 
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: end;
+    justify-content: end;
     gap: 10px;
 
     text-decoration: none;
+    height: 250px;
+    width: 100%;
 
-    .img {
-        height: 200px;
-        width: 100%;
+    box-shadow: @box-shadow-light;
+
+    transform: scale(0.95);
+}
+
+.img {
+    height: 200px;
+    width: 100%;
+    flex-shrink: 0;
+    background-color: @color-primary;
+}
+
+.info {
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    box-sizing: border-box;
+    padding: 10px 10px;
+
+    position: relative;
+
+    background-color: @bg-accent;
+    box-shadow: @box-shadow-light;
+    color: @color-accent;
+    width: 80%;
+
+    border-radius: @border-radius-normal;
+
+    top: 80px;
+
+    .name {
+        font-weight: bold;
         flex-shrink: 0;
-        background-color: @color-primary;
+        text-align: center;
+        max-width: 100%;
+        line-break: auto;
     }
 
-    .info {
-        height: 150px;
+    z-index: 2;
+}
 
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
+.topics {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.1;
+    height: 3em;
 
-        box-sizing: border-box;
-        padding: 10px 0px;
+    background-color: @bg-accent;
+    width: 100%;
+    overflow-x: auto;
 
-        position: relative;
-        top: -50px;
+    padding: 5px 20px;
 
-        background-color: @bg-accent;
-        box-shadow: @box-shadow-light;
-        color: @color-accent;
-        width: 80%;
-
+    p {
+        background-color: @bg-primary;
+        color: @color-primary;
+        height: min-content;
+        padding: 5px 10px;
         border-radius: @border-radius-normal;
-
-        .name {
-            font-weight: bold;
-            flex-shrink: 0;
-            text-align: center;
-            max-width: 100%;
-            line-break: auto;
-        }
-    }
-
-    .topics {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        gap: 10px;
-        flex-wrap: wrap;
-        flex-grow: 1;
-        padding-top: 8px;
-        line-height: 1.1;
-        height: 3em;
-
-        position: relative;
-        top: -50px;
-
-        max-width: 80%;
-
-        p {
-            background-color: @bg-primary;
-            color: @color-primary;
-            height: min-content;
-            padding: 5px 10px;
-            border-radius: @border-radius-normal;
-        }
     }
 }

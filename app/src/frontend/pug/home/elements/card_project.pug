@@ -1,8 +1,9 @@
-a.card-project-wrapper(href="/project/" + project.id)
-    img.img(src="/static/resources/projects/" + project.banner)
+div.card-project-wrapper
     div.info
         p.name.text-big=project.name
         p=project.startDate + " - " + project.endDate
-    div.topics
-        for detail in project.details
-            p=detail
+    a(style=`background-image: url(${"/static/resources/projects/" + project.banner})` href="/project/" + project.id).card-project
+        // img.img(src="/static/resources/projects/" + project.banner)
+        div.topics
+            for detail in project.details
+                p=detail

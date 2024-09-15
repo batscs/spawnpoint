@@ -14,7 +14,7 @@ import "./types";
  */
 const openFile = (filename : string): string => {
     // Pfad aufgrund unterschiedlicher Slashes bei Ordnerpfaden (Windows vs. Unix) dynamisch aufbauen
-    const pathToFile = path.join('data', "database", `${filename}.json`);
+    const pathToFile = path.join('data', "database", `${filename}`);
 
     // Datei-Inhalt mit der UTF8-Zeichenkodierung interpretieren
     const options = { encoding: 'utf8' };
@@ -41,30 +41,39 @@ const appendFile = (filename: string, line: string) => {
     fs.appendFileSync(pathToFile, `${line}\n`);
 };
 
-const load = (table : string): {} | [] | null | any => {
+const loadJson = (table : string): {} | [] | null | any => {
     try {
-        return JSON.parse(openFile(table));
+        return JSON.parse(openFile(table + ".json"));
     } catch (err: any) {
-        console.error("Could not load database: " + table);
+        console.error("Could not loadJson database: " + table);
+        return null;
+    }
+}
+
+const load = (filename : string): {} | [] | null | any => {
+    try {
+        return openFile(filename);
+    } catch (err: any) {
+        console.error("Could not loadJson database: " + filename);
         return null;
     }
 }
 
 export default class DatabaseController {
     static getConfig = () => {
-        return load("config");
+        return loadJson("config");
     }
 
     static getJobs = (): job[] => {
-        return load("jobs");
+        return loadJson("jobs");
     }
 
     static getAbout = (): about => {
-        return load("about");
+        return loadJson("about");
     }
 
     static getProjects = (): project[] => {
-        let values : {} | [] | null = load("projects");
+        let values : {} | [] | null = loadJson("projects");
         let result : project[] = [];
 
         if (Array.isArray(values)) {
@@ -98,5 +107,9 @@ export default class DatabaseController {
 
     static persistentLog(log: string): void {
         appendFile("traffic_log", log);
+    }
+
+    static getHttpLog(): string {
+        return load("traffic_log.log");
     }
 }

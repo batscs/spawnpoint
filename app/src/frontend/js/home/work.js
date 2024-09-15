@@ -19,20 +19,18 @@ document.addEventListener('DOMContentLoaded', function () {
             body: JSON.stringify(body) // Send the selected topic as a filter
         })
             .then(response => response.json())
-            .then(data => {
+            .then(async data => {
                 // Clear the projects container
                 projectsContainer.innerHTML = '';
 
                 // Fetch and append each project's HTML content
-                data.projects.forEach(project => {
-                    fetch(`/api/html/project/${project.id}`)
-                        .then(response => response.text()) // We expect HTML content
-                        .then(html => {
-                            // Directly append the HTML
-                            projectsContainer.insertAdjacentHTML('beforeend', html);
-                        })
-                        .catch(error => console.error('Error fetching project HTML:', error));
-                });
+                for (const project of data.projects) {
+                    const response = await fetch(`/api/html/project/${project.id}`);
+                    const html = await response.text();
+
+                    projectsContainer.insertAdjacentHTML('beforeend', html);
+
+                }
             })
             .catch(error => console.error('Error fetching projects:', error));
     }

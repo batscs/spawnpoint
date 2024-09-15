@@ -129,33 +129,27 @@ router.post('/api/work', (req: Request, res: Response) => {
     res.send({projects: projects});
 });
 
-router.post('/admin/create', uploadProjects.any(), (req: Request, res: Response) => {
+router.post('/admin/create-project', (req: Request, res: Response) => {
 
     if (!req.cookies || !auth.authenticateToken(req.cookies["token"])) {
         res.send({ error: "unauthorized" });
     } else {
-        // Check if a banner file has been uploaded
-        let banner : string = "";
-        if (req.files && req.files.length == 1) {
-            if (Array.isArray(req.files)) {
-                banner = req.files[0].filename;
-            }
-        }
 
         const id = auth.generateToken();
+        console.log(JSON.stringify(req.body));
 
         const project: project = {
             id: id,
             name: req.body.name,
             topics: req.body.topics.split(","),
-            details: req.body.details.split(","),
-            description: req.body.description,
-            isPublished: req.body.published === "true",
+            details: [],
+            description: "",
+            isPublished: false,
             startDate: req.body.startDate,
             endDate: req.body.endDate,
-            source: req.body.source,
-            preview: req.body.preview,
-            banner: banner
+            source: "",
+            preview: "",
+            banner: ""
         }
 
         db.saveProject(project);

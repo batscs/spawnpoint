@@ -1,0 +1,133 @@
+@import "../variables";
+
+.content {
+  padding: 50px;
+  width: @max-width;
+}
+
+.container {
+  gap: 100px;
+  width: 100%;
+}
+
+.stacks {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  color: @color-primary;
+  width: max-content;
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: max-content;
+
+  }
+}
+
+.experience {
+  display: flex;
+  flex-direction: column;
+
+  flex-grow: 1;
+  gap: 50px;
+  color: @color-primary;
+
+  a {
+    color: darken(@color-primary, 10%);
+  }
+
+  .job {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  h1 {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-weight: 800;
+
+    a {
+      font-weight: normal;
+      color: @color-primary;
+    }
+
+    span {
+      color: @color-primary;
+      font-weight: normal;
+      background-color: transparent;
+      padding: 0;
+    }
+
+    .title::before {
+      content: "— ";
+    }
+
+    .right {
+      margin-left: auto;
+    }
+  }
+}
+
+.markdown {
+  line-height: 2;
+}
+
+@media (max-width: 850px) {
+
+  .content {
+    padding: 20px;
+  }
+
+  .container {
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .stacks {
+    width: 100%;
+    flex-direction: row;
+
+    .stack {
+      gap: 10px;
+
+      ul {
+        padding-left: 15px;
+        max-height: 30vh;
+        overflow-y: auto;
+      }
+
+      h1 {
+        width: max-content;
+      }
+    }
+  }
+
+  .experience {
+    header {
+      align-items: start;
+      flex-direction: column;
+      gap: 5px;
+
+      h1 {
+        flex-direction: column;
+        align-items: start;
+        gap: 5px;
+      }
+    }
+  }
+
+  .title::before {
+    display: none;
+  }
+}

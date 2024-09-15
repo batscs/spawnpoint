@@ -2,9 +2,11 @@ extends fragments/structure
 
 append style
     link(rel="stylesheet", href="/static/css/admin/elements/card_project.css")
-    link(rel="stylesheet", href="/static/css/admin/pages/manage.css")
+    link(rel="stylesheet", href="/static/css/admin/pages/projects.css")
 
 append content
+    div.buttons
+        a(href="/admin/create-project") Create new Project
     table
         tr
             th.no-mobile Banner

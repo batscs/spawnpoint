@@ -15,3 +15,15 @@ type project = {
 type config = {
     password: string
 }
+
+type job = {
+    name: string,
+    title: string,
+    timeline: string,
+    description: string,
+}
+
+type about = {
+    techstack: string[],
+    interests: string[]
+}

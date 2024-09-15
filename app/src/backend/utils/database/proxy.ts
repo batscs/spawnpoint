@@ -1,7 +1,7 @@
 import db from "./controller";
 
 export default class DatabaseProxy {
-    private static cacheTTL: number = 10; // TODO cacheTTL: 1 * 60 * 1000; // Cache-Zeit in Millisekunden (1 Minute)
+    private static cacheTTL: number = 10; // TODO cacheTTL: 5 * 60 * 1000; // Cache-Zeit in Millisekunden (5 Minuten)
     private static cache: Map<string, { data: any, timestamp: number }> = new Map();
 
     private static getCachedResult(functionName: string, dbFunction: () => any): any {
@@ -22,6 +22,14 @@ export default class DatabaseProxy {
         return DatabaseProxy.getCachedResult("getConfig", db.getConfig);
     }
 
+    static getAbout() {
+        return DatabaseProxy.getCachedResult("getAbout", db.getAbout);
+    }
+
+    static getJobs() {
+        return DatabaseProxy.getCachedResult("getJobs", db.getJobs);
+    }
+
     static getProjects(): project[] {
         return DatabaseProxy.getCachedResult("getProjects", db.getProjects);
     }
@@ -30,7 +38,4 @@ export default class DatabaseProxy {
         return this.getProjects().find(p => p.id === projectId) || null;
     }
 
-    static saveProject(project: project) {
-        db.saveProject(project);
-    }
 };

@@ -4,7 +4,7 @@ append style
     link(rel="stylesheet", href="/static/css/admin/pages/project.css")
 
 append content
-    form#form(action="/admin/create" method="POST" enctype="multipart/form-data")
+    form#form(action="/admin/create-project" method="POST")
         h1 Create new Project
         div.flex-row.gap-20px
             div.flex-column.flex-grow
@@ -18,19 +18,6 @@ append content
                 input(type="date", name="endDate")
         a topics (csv)
         input(type="text", name="topics")
-        a details (csv)
-        input(type="text", name="details")
-        a description (markdown)
-        textarea(name="description")
-        a source
-        input(type="text", name="source")
-        a preview
-        input(type="text", name="preview")
-        div.flex-row.gap-10px
-            a isPublished
-            input(type="checkbox", name="published")
-        a banner
-        input(type="file", id="banner", name="banner")
-        label#file-name.fake-input(for="banner") 📁 Upload Banner
+
         input#save(type="submit", value="Submit")
     //input#delete(type="button", value="Delete")

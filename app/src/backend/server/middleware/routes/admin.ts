@@ -26,18 +26,18 @@ router.get('/admin/logout', (req: Request, res: Response) => {
     res.redirect("/admin/");
 });
 
-router.get('/admin/manage', (req: Request, res: Response) => {
+router.get('/admin/projects', (req: Request, res: Response) => {
     if(req.cookies && auth.authenticateToken(req.cookies["token"])) {
         let projects = db.getProjects();
-        res.render("admin/manage", {projects})
+        res.render("admin/projects", {projects})
     } else {
         res.redirect("/admin?error=" + encodeURIComponent("Incorrect username or password"));
     }
 });
 
-router.get('/admin/create', (req: Request, res: Response) => {
+router.get('/admin/create-project', (req: Request, res: Response) => {
     if(req.cookies && auth.authenticateToken(req.cookies["token"])) {
-        res.render("admin/create")
+        res.render("admin/create-project")
     } else {
         res.redirect("/admin?error=" + encodeURIComponent("Incorrect username or password"));
     }

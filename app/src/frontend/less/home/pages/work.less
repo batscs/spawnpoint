@@ -25,7 +25,6 @@
     font-weight: 800;
     color: @color-primary;
     margin-bottom: 30px;
-    font-size: 40px;
     padding: 10px;
     border-radius: @border-radius-normal;
 }
@@ -39,14 +38,8 @@
     font-weight: bold;
     font-size: 20px;
     cursor: pointer;
-    padding-bottom: 20px;
     flex-wrap: wrap;
 
-    max-height: 120px;
-    min-height: 120px;
-    overflow-y: auto;
-
-    margin-bottom: 20px;
     padding-top: 10px;
 
     a {
@@ -55,7 +48,6 @@
         height: min-content;
         padding: 10px 20px;
         transition: 0.1s;
-        font-size: 30px;
     }
 
     a:hover, .selected {
@@ -72,9 +64,27 @@
     }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 800px) {
+
+    .content {
+        padding: 20px;
+        padding-top: 0;
+    }
+
+    #name {
+        margin-bottom: 0;
+    }
+
+    .project-topics {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        flex-wrap: wrap;
+        flex-shrink: 0;
+    }
+
     .project-topics a {
-        font-size: 16px;
         padding: 10px 10px;
     }
 

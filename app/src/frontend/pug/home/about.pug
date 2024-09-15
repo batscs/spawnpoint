@@ -5,3 +5,29 @@ append style
 
 
 append content 
+    div.container.flex-row
+        div.stacks
+            div.stack
+                h1.text-medium Tech Stack:
+                ul
+                    each tech in techstack
+                        li.text-mediumsmall=tech
+
+            div.stack
+                h1.text-medium Interests:
+                ul
+                    each interest in interests
+                        li.text-mediumsmall=interest
+
+        div.experience
+            div.job
+                h1.text-medium Experience
+                a.text-mediumsmall My professional work experience covers the following companies
+            each job in jobs
+                div.job
+                    header
+                        h1.text-medium=job.name
+                            a.title.text-mediumsmall=job.title
+                        a.right.text-mediumsmall=job.timeline
+                    div.markdown.text-mediumsmall
+                        !=job.description

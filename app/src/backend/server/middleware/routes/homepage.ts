@@ -10,7 +10,14 @@ router.get('/', (req: Request, res: Response) => {
 });
 
 router.get('/about', (req: Request, res: Response) => {
-    res.render("home/about");
+    let jobs: job[] = db.getJobs();
+    const about = db.getAbout();
+
+    jobs.forEach(job => {
+        job.description = marked.parse(job.description);
+    });
+
+    res.render("home/about", {jobs: jobs, interests: about.interests.sort(), techstack: about.techstack.sort()});
 });
 
 router.get('/project/:id', (req: Request, res: Response) => {
@@ -23,7 +30,11 @@ router.get('/project/:id', (req: Request, res: Response) => {
     res.render("home/project", {project: project, markdown: markdown});
 });
 
-router.get('/work', (req: Request, res: Response) => {
+router.get("/home/work", (req: Request, res: Response) => {
+    res.redirect("/projects");
+})
+
+router.get('/projects', (req: Request, res: Response) => {
 
     const filter = req.query.filter;
     let projects = db.getProjects();

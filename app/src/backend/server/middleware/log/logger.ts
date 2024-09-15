@@ -1,6 +1,7 @@
 // src/middleware/logger.ts
 
 import { Request, Response, NextFunction } from 'express';
+import db from "../../../utils/database/controller";
 
 const logger = (req: Request, res: Response, next: NextFunction) => {
     const ip : string | undefined = req.ip;
@@ -11,7 +12,11 @@ const logger = (req: Request, res: Response, next: NextFunction) => {
     const body : string = JSON.stringify(req.body);
     const method : string = req.method;
 
-    console.log(`[${timestamp}] IP: ${ip} METHOD: ${method} URL: ${url} QUERY: ${query} BODY: ${body} PARAMS: ${params}`);
+    const line = `[${timestamp}] IP: ${ip} METHOD: ${method} URL: ${url} QUERY: ${query} BODY: ${body} PARAMS: ${params}`;
+
+
+    console.log(line);
+    db.persistentLog(line);
 
     next();
 };

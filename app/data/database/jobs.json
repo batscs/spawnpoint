@@ -1,0 +1,16 @@
+[
+  {
+    "id": "1",
+    "name": "Hapag-Lloyd",
+    "title": "Java Software Engineer",
+    "timeline": "2023 October - Present",
+    "description": "I am currently a working student at Hapag-Lloyd, supported by a university scholarship, working in the Network Operations and Analytics team.\n\n- Implementing backend features in projects running on Java Jakarta EE and Payara.\n- Analyzing and processing logs with the Elasticsearch ELK Stack to track usage statistics.\n- Writing documentation for existing workflows"
+  },
+  {
+    "id": "2",
+    "name": "Atlantis DX",
+    "title": "Full Stack Web Developer",
+    "timeline": "2023 July - 2023 September",
+    "description": "As a working student I contributed to the E-Commerce team at Atlantis DX, with Eventim as a key client.\n\n- Developed and maintained front-end and back-end functionalities using PHP, JavaScript, and CSS.\n- Helped translate front-end texts to allow multi-language support.\n- Worked extensively with Adobe Magento, ensuring seamless integrations and optimizations for the online store.\n- Enhanced user experience by implementing consistent UI/UX improvements.\n- Ensured smooth functionality across different components while maintaining a focus on performance and scalability."
+  }
+]

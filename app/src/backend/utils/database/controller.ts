@@ -15,7 +15,6 @@ import "./types";
 const openFile = (filename : string): string => {
     // Pfad aufgrund unterschiedlicher Slashes bei Ordnerpfaden (Windows vs. Unix) dynamisch aufbauen
     const pathToFile = path.join('data', "database", `${filename}.json`);
-    console.log("DEBUG Database-Controller: Opening file: " + pathToFile);
 
     // Datei-Inhalt mit der UTF8-Zeichenkodierung interpretieren
     const options = { encoding: 'utf8' };
@@ -34,7 +33,15 @@ const writeFile = (filename: string, data: [] | {}) => {
     fs.writeFileSync(pathToFile, JSON.stringify(data));
 }
 
-const load = (table : string): {} | [] | null => {
+const appendFile = (filename: string, line: string) => {
+    // Build dynamic file path
+    const pathToFile = path.join('data', 'database', `${filename}.log`);
+
+    // Append line to file
+    fs.appendFileSync(pathToFile, `${line}\n`);
+};
+
+const load = (table : string): {} | [] | null | any => {
     try {
         return JSON.parse(openFile(table));
     } catch (err: any) {
@@ -46,6 +53,14 @@ const load = (table : string): {} | [] | null => {
 export default class DatabaseController {
     static getConfig = () => {
         return load("config");
+    }
+
+    static getJobs = (): job[] => {
+        return load("jobs");
+    }
+
+    static getAbout = (): about => {
+        return load("about");
     }
 
     static getProjects = (): project[] => {
@@ -79,5 +94,9 @@ export default class DatabaseController {
         }
 
         writeFile("projects", dataset);
+    }
+
+    static persistentLog(log: string): void {
+        appendFile("traffic_log", log);
     }
 }

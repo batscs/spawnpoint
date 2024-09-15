@@ -2,13 +2,13 @@ version: '3.8'
 
 services:
   app:
-    image: node:14   # You can specify the Node.js version you need
+    image: node:18   # Use Node.js v18
     working_dir: /usr/src/app
-    command: npm start
+    command: sh -c "npm install && npm start"
     volumes:
       - ./app:/usr/src/app
-      - /usr/src/app/node_modules
     ports:
-      - "3001:3000"  # Map your application's port to the host
+      - "80:3000"
     environment:
       NODE_ENV: development
+

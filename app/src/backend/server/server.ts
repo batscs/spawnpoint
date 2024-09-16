@@ -25,7 +25,6 @@ app.use('/static/css', less(lessSrcPath, {
 
 // CookieParser
 app.use(cookieParser());
-
 // BodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -37,6 +36,8 @@ app.use('/favicon.ico', express.static(path.join(__dirname, "../../../data/resou
 app.use('/static/css', express.static(path.join(__dirname, "../../frontend/css")));
 app.use('/static/js', express.static(path.join(__dirname, "../../frontend/js")));
 app.use('/static/resources', express.static(path.join(__dirname, "../../../data/resources")));
+
+app.set('trust proxy', true);
 
 app.use(logger);
 app.use(router_homepage);

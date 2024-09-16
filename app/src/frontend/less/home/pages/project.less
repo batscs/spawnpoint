@@ -9,23 +9,24 @@
 
 #description {
   width: 100%;
-  line-height: 2;
   max-width: @max-width;
   color: @color-primary;
-
-  p {
-    margin-bottom: 20px;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 
   a:link, a:visited {
     color: @bg-highlight;
   }
 
+  p, li, a,  code{
+    font-size: 18px;
+  }
 
-  img {
+  img, video {
     max-width: 100%;
     border-radius: @border-radius-normal;
-    margin: 10px 0;
+    margin: 0 auto;
   }
 
   code, pre {
@@ -68,6 +69,7 @@
   width: max-content;
   padding: 10px;
   border-radius: @border-radius-normal;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 1000px) {

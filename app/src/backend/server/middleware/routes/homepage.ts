@@ -5,6 +5,30 @@ import date from "../../../utils/common/date";
 import db from "../../../utils/database/proxy";
 const marked = require('marked');
 
+const renderer = new marked.Renderer();
+
+// this here exists so [video](https://video-url.com/file.mp4) links get rendered into a <video> </video> element
+renderer.link = (href: any, title: string, text: string) => {
+    // Extract the relevant fields from href if it's an object
+    const hrefUrl = typeof href === 'object' && href.href ? href.href : href;
+    const hrefText = typeof href === 'object' && href.text ? href.text : text;
+    const hrefTitle = typeof href === 'object' && href.title ? href.title : title;
+
+    // Check if the text is 'video' to apply the video tag logic
+    if (hrefText && hrefText.toLowerCase() === 'video' && hrefUrl) {
+        return `<video controls>
+                    <source src="${hrefUrl}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>`;
+    }
+
+    // Fallback for normal links if the text is not 'video'
+    const linkTitle = hrefTitle ? ` title="${hrefTitle}"` : '';
+    return `<a href="${hrefUrl}"${linkTitle}>${hrefText}</a>`;
+};
+
+marked.setOptions({ renderer });
+
 router.get('/', (req: Request, res: Response) => {
     res.render("home/index");
 });

@@ -43,7 +43,7 @@ export default class Authentication {
     static verifyPassword(password: string): boolean {
         // @ts-ignore
         const config : config = db.getConfig();
-
+        // TODO UNBEDINGT PASSWORD HASHEN (AUCH WENN CLIENTSIDE GESENDET WIRD)
         return password == config?.password;
     }
 

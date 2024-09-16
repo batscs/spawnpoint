@@ -3,10 +3,12 @@
 .content {
   padding: 20px;
   align-items: center;
+  width: 100%;
   max-width: 50vw;
 }
 
 #description {
+  width: 100%;
   line-height: 2;
   max-width: @max-width;
   color: @color-primary;
@@ -14,6 +16,11 @@
   p {
     margin-bottom: 20px;
   }
+
+  a:link, a:visited {
+    color: @bg-highlight;
+  }
+
 
   img {
     max-width: 100%;

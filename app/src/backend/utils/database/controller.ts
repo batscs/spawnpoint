@@ -105,11 +105,20 @@ export default class DatabaseController {
         writeFile("projects", dataset);
     }
 
-    static persistentLog(log: string): void {
+    static addHttpLog(log: string): void {
         appendFile("traffic_log", log);
     }
 
+    static addUsageLog(log: string): void {
+        appendFile("usage_log", log);
+    }
+
+
     static getHttpLog(): string {
         return load("traffic_log.log");
+    }
+
+    static getUsageLog(): string {
+        return load("usage_log.log");
     }
 }

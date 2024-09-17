@@ -43,9 +43,19 @@ router.get('/admin/create-project', (req: Request, res: Response) => {
     }
 });
 
-router.get('/admin/log', (req: Request, res: Response) => {
+router.get('/admin/log/http', (req: Request, res: Response) => {
     if(req.cookies && auth.authenticateToken(req.cookies["token"])) {
         const log = db.getHttpLog();
+        res.setHeader('Content-Type', 'text/plain');  // Set the correct header for plain text
+        res.send(log);
+    } else {
+        res.send("not enough permissions");
+    }
+});
+
+router.get('/admin/log/usage', (req: Request, res: Response) => {
+    if(req.cookies && auth.authenticateToken(req.cookies["token"])) {
+        const log = db.getUsageLog();
         res.setHeader('Content-Type', 'text/plain');  // Set the correct header for plain text
         res.send(log);
     } else {

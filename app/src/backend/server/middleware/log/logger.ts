@@ -14,9 +14,17 @@ const logger = (req: Request, res: Response, next: NextFunction) => {
 
     const line = `[${timestamp}] IP: ${ip} METHOD: ${method} URL: ${url} QUERY: ${query} BODY: ${body} PARAMS: ${params}`;
 
+    if (
+        url === '/' ||
+        url === '/projects' ||
+        url.startsWith('/project/') ||
+        url === '/about'
+    ) {
+        db.addUsageLog(line);  // Add usage log for specific routes
+    }
 
     console.log(line);
-    db.persistentLog(line);
+    db.addHttpLog(line);
 
     next();
 };

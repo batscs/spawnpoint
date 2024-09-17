@@ -16,7 +16,7 @@ renderer.link = (href: any, title: string, text: string) => {
 
     // Check if the text is 'video' to apply the video tag logic
     if (hrefText && hrefText.toLowerCase() === 'video' && hrefUrl) {
-        return `<video controls autoplay>
+        return `<video controls autoplay muted>
                     <source src="${hrefUrl}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>`;
@@ -60,7 +60,6 @@ router.get("/home/work", (req: Request, res: Response) => {
 
 router.get('/projects', (req: Request, res: Response) => {
 
-    const filter = req.query.filter;
     let projects = db.getProjects();
 
     projects = projects.filter(project => project.isPublished);

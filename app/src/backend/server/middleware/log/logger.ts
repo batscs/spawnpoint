@@ -18,7 +18,8 @@ const logger = (req: Request, res: Response, next: NextFunction) => {
         url === '/' ||
         url === '/projects' ||
         url.startsWith('/project/') ||
-        url === '/about'
+        url === '/about' ||
+        url.startsWith("/home")
     ) {
         db.addUsageLog(line);  // Add usage log for specific routes
     }

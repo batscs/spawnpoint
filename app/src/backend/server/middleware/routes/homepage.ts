@@ -16,7 +16,7 @@ renderer.link = (href: any, title: string, text: string) => {
 
     // Check if the text is 'video' to apply the video tag logic
     if (hrefText && hrefText.toLowerCase() === 'video' && hrefUrl) {
-        return `<video controls autoplay muted>
+        return `<video controls autoplay muted loop>
                     <source src="${hrefUrl}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>`;

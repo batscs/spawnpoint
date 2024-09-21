@@ -77,18 +77,26 @@
   }
 }
 
-
-
-#name {
-  font-size: 33px;
-  font-weight: bold;
-  background-color: @bg-contrast;
-  color: @color-contrast;
-  width: max-content;
-  padding: 10px;
-  border-radius: @border-radius-normal;
+#info {
   margin-bottom: 20px;
+
+  #name {
+    font-size: 33px;
+    font-weight: bold;
+    background-color: @bg-contrast;
+    color: @color-contrast;
+    width: max-content;
+    padding: 10px;
+    border-radius: @border-radius-normal;
+  }
+
+  display: flex;
+  flex-direction: column;
+  background-color: red;
+  width: 100%;
 }
+
+
 
 @media (max-width: 1000px) {
 

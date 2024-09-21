@@ -9,6 +9,13 @@ append script
     script(src="/static/js/home/project.js")
 
 append content
-    a#name=project.name
+    div#info
     div#description
+        h1=project.name
+        if project.startDate
+            a= "Project Timeline: " + (project.startDate) + " - " + (project.endDate ? project.endDate : "Present")
+        if project.source
+            a(href="project.source") Source Code
+        if project.preview
+            a(href=project.preview) Release
         != markdown

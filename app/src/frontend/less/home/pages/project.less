@@ -4,7 +4,7 @@
   padding: 20px;
   align-items: center;
   width: 100%;
-  max-width: 50vw;
+  max-width: 60vw;
 }
 
 #description {
@@ -20,10 +20,12 @@
     content:' ';
     display:block;
     margin-top: 5px;
-    border:2px solid darken(@color-primary, 10%);
+    border:1.5px solid darken(@color-primary, 10%);
+    border-radius: @border-radius-normal;
   }
 
   a:link, a:visited {
+    text-decoration: underline;
     color: @bg-highlight;
   }
 
@@ -41,7 +43,6 @@
 
   img, video {
     max-width: 100%;
-    max-height: 50vh;
     border-radius: @border-radius-normal;
     margin: 0 auto;
   }

@@ -12,5 +12,19 @@
     "title": "Full Stack Web Developer",
     "timeline": "2023 July - 2023 September",
     "description": "As a working student I contributed to the E-Commerce team at Atlantis DX, with Eventim as a key client.\n\n- Developed and maintained front-end and back-end functionalities using PHP, JavaScript, and CSS.\n- Helped translate front-end texts to allow multi-language support.\n- Worked extensively with Adobe Magento, ensuring seamless integrations and optimizations for the online store.\n- Enhanced user experience by implementing consistent UI/UX improvements.\n- Ensured smooth functionality across different components while maintaining a focus on performance and scalability."
+  },
+  {
+    "id": "3",
+    "name": "FH Wedel",
+    "title": "Computer Science Bachelor",
+    "timeline": "2022 October - Present",
+    "description": "I am currently pursuing a Bachelor's degree in Computer Science at FH Wedel, where I have developed a strong foundation in various programming paradigms and technologies.\n\n- Learned procedural programming in Free Pascal and functional programming in Haskell.\n- Developed object-oriented applications in Java, and studied software design patterns with their benefits and drawbacks.\n- Gained experience in low-level C programming.\n- Practiced networking in local area networks and distributed systems on the IP-Layer. \n- Built web applications using Node.js, incorporating modern web development practices.\n- Explored Unix shell programming and its application in system-level programming.\n- Applied knowledge of data structures and algorithms in Java-based software projects.\n- Worked on IT security, learning about encryption, authentication, and secure software design.\n\nMore details can be found in [my git repository](https://git.bats.li/bats/fhwedel)."
+  },
+  {
+    "id": "4",
+    "name": "Projects",
+    "title": "Hobby Developer",
+    "timeline": "since 2016",
+    "description": "Links to some of my work can be found on [bats.li/projects](/projects) and details can be provided upon request via a scheduled demo call."
   }
 ]

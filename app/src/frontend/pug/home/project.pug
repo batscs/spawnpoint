@@ -15,7 +15,7 @@ append content
         if project.startDate
             a= "Project Timeline: " + (project.startDate) + " - " + (project.endDate ? project.endDate : "Present")
         if project.source
-            a(href="project.source") Source Code
+            a(href="project.source" target="_blank") Source Code
         if project.preview
-            a(href=project.preview) Release
+            a(href=project.preview target="_blank") Release
         != markdown

@@ -25,5 +25,6 @@ type job = {
 
 type about = {
     techstack: string[],
-    interests: string[]
+    interests: string[],
+    email: string
 }

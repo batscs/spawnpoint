@@ -33,6 +33,11 @@ router.get('/', (req: Request, res: Response) => {
     res.render("home/index");
 });
 
+router.get('/contact', (req: Request, res: Response) => {
+    const about = db.getAbout();
+    res.render("home/contact", {email: about.email});
+});
+
 router.get('/about', (req: Request, res: Response) => {
     let jobs: job[] = db.getJobs();
     const about = db.getAbout();

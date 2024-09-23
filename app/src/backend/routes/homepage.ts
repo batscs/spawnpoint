@@ -1,8 +1,8 @@
 // src/routes/router.ts
 import { Router, Request, Response } from 'express';
 const router = Router();
-import date from "../../../utils/common/date";
-import db from "../../../utils/database/proxy";
+import date from "../utils/common/date";
+import db from "../utils/database/proxy";
 const marked = require('marked');
 
 const renderer = new marked.Renderer();

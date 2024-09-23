@@ -1,9 +1,9 @@
 // src/routes/router.ts
 import { Router, Request, Response } from 'express';
 const router = Router();
-import auth from "../../../utils/common/authentication";
-import db from "../../../utils/database/controller";
-import date from "../../../utils/common/date";
+import auth from "../utils/common/authentication";
+import db from "../utils/database/controller";
+import date from "../utils/common/date";
 
 router.get('/admin/', (req: Request, res: Response) => {
     if(req.cookies && auth.authenticateToken(req.cookies["token"])) {

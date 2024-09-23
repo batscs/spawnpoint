@@ -6,10 +6,10 @@ import path from "node:path";
 import less from 'less-middleware';
 import cookieParser from "cookie-parser";
 
-import router_homepage from './middleware/routes/homepage';
-import router_admin from './middleware/routes/admin';
-import router_api from './middleware/routes/api';
-import logger from './middleware/log/logger';
+import router_homepage from '../routes/homepage';
+import router_admin from '../routes/admin';
+import router_api from '../routes/api';
+import logger from '../middleware/logger';
 
 const app = express();
 const port = 3000;

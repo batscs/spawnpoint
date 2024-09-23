@@ -1,12 +1,12 @@
 // src/routes/router.ts
 import { Router, Request, Response } from 'express';
 const router = Router();
-import auth from "../../../utils/common/authentication";
-import db from "../../../utils/database/controller";
-import dbp from "../../../utils/database/proxy";
+import auth from "../utils/common/authentication";
+import db from "../utils/database/controller";
+import dbp from "../utils/database/proxy";
 import multer, {FileFilterCallback} from 'multer';
 import path from 'path';
-import date from "../../../utils/common/date";
+import date from "../utils/common/date";
 
 // Set up storageProjects for uploaded files
 const storageProjects = multer.diskStorage({

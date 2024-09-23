@@ -1,7 +1,7 @@
 // src/middleware/logger.ts
 
 import { Request, Response, NextFunction } from 'express';
-import db from "../../../utils/database/controller";
+import db from "../utils/database/controller";
 
 const logger = (req: Request, res: Response, next: NextFunction) => {
     const ip : string | undefined = req.ip;

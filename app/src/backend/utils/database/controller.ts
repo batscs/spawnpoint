@@ -67,7 +67,7 @@ export default class DatabaseController {
     }
 
     static appendLog = (name: string, line: string) => {
-        return appendLog(name + ".log", line);
+        return appendLog(name, line);
     }
 
     static getUsage = (): usage_statistic[] => {

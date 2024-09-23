@@ -28,3 +28,15 @@ type about = {
     interests: string[],
     email: string
 }
+
+type log = {
+    timestamp: string,
+    line: string
+}
+
+type usage_statistic = {
+    session: string
+    first_seen: string
+    lines: log[]
+    id: string
+}

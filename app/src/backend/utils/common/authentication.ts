@@ -50,11 +50,11 @@ export default class Authentication {
     private static cleanupOldTokens(): void {
         const expiration = 14 * 24 * 60 * 60 * 1000;
         const now = Date.now();
-        const maxTimestamp = now + expiration;
+        const maxTimestamp = now - expiration;
 
         // Iterate through the Set and remove tokens older than 14 days
         for (let entry of this.tokenSet) {
-            if (entry.timestamp > maxTimestamp) {
+            if (entry.timestamp < maxTimestamp) {
                 this.tokenSet.delete(entry);
             }
         }

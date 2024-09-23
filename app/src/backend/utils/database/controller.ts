@@ -2,7 +2,9 @@ import date from "../common/date";
 
 const fs = require('fs');
 const path = require('path');
+import auth from "../common/authentication";
 import "./types";
+import usageLogger from "../../middleware/usage-logger";
 
 // todo in eigene type.ts datei extrahieren
 
@@ -25,7 +27,7 @@ const openFile = (filename : string): string => {
     return filecontent;
 }
 
-const writeFile = (filename: string, data: [] | {}) => {
+const writeJson = (filename: string, data: [] | {}) => {
     // Build dynamic file path
     const pathToFile = path.join('data', "database", `${filename}.json`);
 
@@ -33,7 +35,7 @@ const writeFile = (filename: string, data: [] | {}) => {
     fs.writeFileSync(pathToFile, JSON.stringify(data));
 }
 
-const appendFile = (filename: string, line: string) => {
+const appendLog = (filename: string, line: string) => {
     // Build dynamic file path
     const pathToFile = path.join('data', 'database', `${filename}.log`);
 
@@ -60,7 +62,60 @@ const load = (filename : string): {} | [] | null | any => {
 }
 
 export default class DatabaseController {
-    static getConfig = () => {
+    static loadLog = (name: string) => {
+        return load(name + ".log");
+    }
+
+    static appendLog = (name: string, line: string) => {
+        return appendLog(name + ".log", line);
+    }
+
+    static getUsage = (): usage_statistic[] => {
+        return loadJson("usage") || [];
+    }
+
+    static trackUsage = (session: string, line: log) => {
+        let usage = this.getUsage();
+
+        // Find the session in the existing usage statistics
+        let sessionData = usage.find(u => u.session.includes(session));
+
+        // Get the current timestamp in milliseconds
+        const currentTimestamp = new Date().getTime();
+
+        const timeToLive: number = 86400000;
+
+        // Check if session exists and the last log is not older than 24 hours (86400000 milliseconds)
+        if (sessionData) {
+            const lastLog = sessionData.lines[sessionData.lines.length - 1];
+            const lastLogTimestamp = new Date(lastLog.timestamp).getTime();
+
+            if ((currentTimestamp - lastLogTimestamp) <= timeToLive) {
+                // If within 24 hours, append the new log
+                sessionData.lines.push(line);
+            } else {
+                // If older than 24 hours, create a new session entry
+                usage.push({
+                    session: session,
+                    first_seen: new Date().toISOString(),
+                    lines: [line],
+                    id: auth.generateToken() // You may have a function to generate a unique ID
+                });
+            }
+        } else {
+            // If session doesn't exist, create a new session entry
+            usage.push({
+                session: session,
+                first_seen: new Date().toISOString(),
+                lines: [line],
+                id: auth.generateToken() // You may have a function to generate a unique ID
+            });
+        }
+
+        writeJson("usage", usage);
+    }
+
+    static getConfig = (): config => {
         return loadJson("config");
     }
 
@@ -102,23 +157,6 @@ export default class DatabaseController {
             dataset.push(project);
         }
 
-        writeFile("projects", dataset);
-    }
-
-    static addHttpLog(log: string): void {
-        appendFile("traffic_log", log);
-    }
-
-    static addUsageLog(log: string): void {
-        appendFile("usage_log", log);
-    }
-
-
-    static getHttpLog(): string {
-        return load("traffic_log.log");
-    }
-
-    static getUsageLog(): string {
-        return load("usage_log.log");
+        writeJson("projects", dataset);
     }
 }

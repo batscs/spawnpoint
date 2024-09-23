@@ -3,7 +3,8 @@ import { Router, Request, Response } from 'express';
 const router = Router();
 import auth from "../utils/common/authentication";
 import db from "../utils/database/controller";
-import date from "../utils/common/date";
+import log from "../utils/common/logger";
+
 
 router.get('/admin/', (req: Request, res: Response) => {
     if(req.cookies && auth.authenticateToken(req.cookies["token"])) {
@@ -45,9 +46,21 @@ router.get('/admin/create-project', (req: Request, res: Response) => {
 
 router.get('/admin/log/http', (req: Request, res: Response) => {
     if(req.cookies && auth.authenticateToken(req.cookies["token"])) {
-        const log = db.getHttpLog();
         res.setHeader('Content-Type', 'text/plain');  // Set the correct header for plain text
-        res.send(log);
+        res.send(log.getHttpLog());
+    } else {
+        res.send("not enough permissions");
+    }
+});
+
+router.get('/admin/log', (req: Request, res: Response) => {
+    if (req.cookies && auth.authenticateToken(req.cookies["token"])) {
+        let usageLogs = log.getUsageLog();
+
+        // Sort usageLogs by `first_seen`, newest first
+        usageLogs.sort((a, b) => new Date(b.first_seen).getTime() - new Date(a.first_seen).getTime());
+
+        res.render("admin/log", { usageLogs });
     } else {
         res.send("not enough permissions");
     }
@@ -55,9 +68,8 @@ router.get('/admin/log/http', (req: Request, res: Response) => {
 
 router.get('/admin/log/usage', (req: Request, res: Response) => {
     if(req.cookies && auth.authenticateToken(req.cookies["token"])) {
-        const log = db.getUsageLog();
         res.setHeader('Content-Type', 'text/plain');  // Set the correct header for plain text
-        res.send(log);
+        res.send(log.getUsageLog());
     } else {
         res.send("not enough permissions");
     }

@@ -1,0 +1,25 @@
+extends fragments/structure
+
+append content
+    h2 User Usage Logs
+    if usageLogs.length > 0
+        table
+            each usage in usageLogs
+                tr
+                    th= usage.first_seen
+                    th= usage.session
+                    th Duration
+                - let lastTimestamp = null
+                each log, index in usage.lines
+                    tr
+                        td= log.timestamp
+                        td= log.line
+                        if (index > 0 && lastTimestamp)
+                            - const diff = new Date(log.timestamp) - new Date(lastTimestamp)
+                            - const diffSeconds = Math.floor(diff / 1000)
+                            td= diffSeconds + 's'
+                        else
+                            td N/A
+                        - lastTimestamp = log.timestamp
+    else
+        p No usage logs found.

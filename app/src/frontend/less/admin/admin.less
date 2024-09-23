@@ -34,3 +34,30 @@ a {
   padding: 20px;
   box-sizing: border-box;
 }
+
+a,p,div,h1,h2,h3,h4,h5,h6 {
+  color: white;
+}
+
+table {
+  border-spacing: 0;
+
+
+  tr:has(th) {
+    background-color: @accent;
+    color: white;
+  }
+
+  tr:not(:has(th)) {
+    background-color: lighten(@accent, 60%);
+    color: black;
+  }
+
+  tr:hover:not(:has(th)) {
+    background-color: lighten(@accent, 30%);
+  }
+
+  th, td {
+    padding: 5px 10px;
+  }
+}

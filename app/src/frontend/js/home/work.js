@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const body = topic === "all" ? {} : {filter: topic};
 
-        fetch('/api/work', {
+        fetch('/api/projects', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

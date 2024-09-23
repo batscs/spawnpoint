@@ -5,8 +5,8 @@ import auth from "../utils/common/authentication";
 import db from "../utils/database/controller";
 import dbp from "../utils/database/proxy";
 import multer, {FileFilterCallback} from 'multer';
-import path from 'path';
 import date from "../utils/common/date";
+import log from "../utils/common/logger";
 
 // Set up storageProjects for uploaded files
 const storageProjects = multer.diskStorage({
@@ -27,7 +27,6 @@ const storageMedia = multer.diskStorage({
     }
 });
 
-// TODO Upload Filter falls logged in nur
 const fileFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
     if (!req.cookies || !auth.authenticateToken(req.cookies["token"])) {
         console.log("DEBUG Multer: Unauthroized uploadProjects attempted");
@@ -112,8 +111,10 @@ router.get("/api/html/project/:projectid", (req: Request, res: Response) => {
     res.render("home/elements/card_project", {project});
 });
 
-router.post('/api/work', (req: Request, res: Response) => {
+router.post('/api/projects', (req: Request, res: Response) => {
     const filter = req.body.filter; // topic
+    log.addUsageLog(req, `PROJECTS - FILTER:${filter}`)
+
     let projects = dbp.getProjects();
 
     projects = projects.filter(project => project.isPublished);

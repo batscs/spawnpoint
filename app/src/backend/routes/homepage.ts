@@ -4,6 +4,8 @@ const router = Router();
 import date from "../utils/common/date";
 import db from "../utils/database/proxy";
 const marked = require('marked');
+import usageLogger from "../middleware/usage-logger";
+import log from "../utils/common/logger";
 
 const renderer = new marked.Renderer();
 
@@ -29,16 +31,16 @@ renderer.link = (href: any, title: string, text: string) => {
 
 marked.setOptions({ renderer });
 
-router.get('/', (req: Request, res: Response) => {
+router.get('/', usageLogger("HOME"), (req: Request, res: Response) => {
     res.render("home/index");
 });
 
-router.get('/contact', (req: Request, res: Response) => {
+router.get('/contact', usageLogger("CONTACT"), (req: Request, res: Response) => {
     const about = db.getAbout();
     res.render("home/contact", {email: about.email});
 });
 
-router.get('/about', (req: Request, res: Response) => {
+router.get('/about', usageLogger("ABOUT"), (req: Request, res: Response) => {
     let jobs: job[] = db.getJobs();
     const about = db.getAbout();
 
@@ -52,18 +54,23 @@ router.get('/about', (req: Request, res: Response) => {
 router.get('/project/:id', (req: Request, res: Response) => {
     const id = req.params.id;
     const project = db.getProjectById(id);
+    log.addUsageLog(req, `PROJECT - ID: ${id}`);
 
     // TODO Abfangen ob project == null
+    if (project) {
+        const markdown = marked.parse(project?.description);
+        res.render("home/project", {project: project, markdown: markdown});
+    } else {
+        res.render("home/error");
+    }
 
-    const markdown = marked.parse(project?.description);
-    res.render("home/project", {project: project, markdown: markdown});
 });
 
-router.get("/home/work", (req: Request, res: Response) => {
+router.get("/home/work", usageLogger("BAITED /HOME/WORK"), (req: Request, res: Response) => {
     res.redirect("/projects");
 })
 
-router.get('/projects', (req: Request, res: Response) => {
+router.get('/projects', usageLogger("PROJECTS"), (req: Request, res: Response) => {
 
     let projects = db.getProjects();
 

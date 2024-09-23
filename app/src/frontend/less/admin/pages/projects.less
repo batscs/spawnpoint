@@ -18,7 +18,6 @@ table {
 
   flex-grow: 1;
 
-  border-spacing: 0;
   a {
     color: black;
   }
@@ -30,20 +29,6 @@ table {
   th,td {
     padding: 10px 50px;
     vertical-align: middle;
-  }
-
-  tr:has(th) {
-    background-color: @accent;
-    color: white;
-  }
-
-  tr:not(:has(th)) {
-    background-color: lighten(@accent, 60%);
-    color: white;
-  }
-
-  tr:hover:not(:has(th)) {
-    background-color: lighten(@accent, 30%);
   }
 
   .name {

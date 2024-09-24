@@ -9,17 +9,17 @@ append content
                     th= usage.first_seen
                     th= usage.session
                     th Duration
-                - let lastTimestamp = null
+                - let nextTimestamp = null
                 each log, index in usage.lines
                     tr
                         td= log.timestamp
                         td= log.line
-                        if (index > 0 && lastTimestamp)
-                            - const diff = new Date(log.timestamp) - new Date(lastTimestamp)
+                        if (index < usage.lines.length - 1)
+                            - nextTimestamp = usage.lines[index + 1].timestamp
+                            - const diff = new Date(nextTimestamp) - new Date(log.timestamp)
                             - const diffSeconds = Math.floor(diff / 1000)
                             td= diffSeconds + 's'
                         else
                             td N/A
-                        - lastTimestamp = log.timestamp
     else
         p No usage logs found.

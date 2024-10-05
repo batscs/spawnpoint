@@ -1,22 +1,21 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Default topic to load when the page loads
-    // Get all the topic links and the projects container
     const topicLinks = document.querySelectorAll('.project-topics a');
     const projectsContainer = document.querySelector('.projects');
     const defaultTopic = "software";
 
     // Function to handle topic selection
     function handleTopicClick(topic) {
-        // Fetch projects based on the selected topic
+        // Disable all topic links while loading
+        topicLinks.forEach(link => link.disabled = true);
 
-        const body = topic === "all" ? {} : {filter: topic};
+        const body = topic === "all" ? {} : { filter: topic };
 
         fetch('/api/projects', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(body) // Send the selected topic as a filter
+            body: JSON.stringify(body)
         })
             .then(response => response.json())
             .then(async data => {
@@ -29,16 +28,25 @@ document.addEventListener('DOMContentLoaded', function () {
                     const html = await response.text();
 
                     projectsContainer.insertAdjacentHTML('beforeend', html);
-
                 }
+
+                // Re-enable the topic links after loading is complete
+                topicLinks.forEach(link => link.disabled = false);
             })
-            .catch(error => console.error('Error fetching projects:', error));
+            .catch(error => {
+                console.error('Error fetching projects:', error);
+                // Re-enable the topic links in case of error
+                topicLinks.forEach(link => link.disabled = false);
+            });
     }
 
     // Attach click event listeners to each topic link
     topicLinks.forEach(link => {
         link.addEventListener('click', function (e) {
             e.preventDefault(); // Prevent default anchor behavior
+
+            // If the link is disabled, prevent click
+            if (this.disabled) return;
 
             const topic = this.textContent.trim(); // Get the topic text
 

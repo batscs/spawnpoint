@@ -23,6 +23,10 @@
     gap: 10px;
     width: max-content;
 
+    li + li {
+      margin-top: 10px;
+    }
+
   }
 }
 
@@ -105,6 +109,11 @@
 
     .stack {
       gap: 10px;
+      flex-grow: 1;
+      flex-shrink: 0;
+      min-width: max-content;
+      max-height: 200px;
+      padding-right: 10px;
 
       ul {
         padding-left: 15px;

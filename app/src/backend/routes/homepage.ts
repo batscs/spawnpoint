@@ -3,10 +3,10 @@ import { Router, Request, Response } from 'express';
 const router = Router();
 import date from "../utils/common/date";
 import db from "../utils/database/proxy";
-const marked = require('marked');
 import usageLogger from "../middleware/usage-logger";
 import log from "../utils/common/logger";
 
+import { marked, Slugger, Renderer } from 'marked';
 const renderer = new marked.Renderer();
 
 // this here exists so [video](https://video-url.com/file.mp4) links get rendered into a <video> </video> element
@@ -51,6 +51,29 @@ router.get('/about', usageLogger("ABOUT"), (req: Request, res: Response) => {
     res.render("home/about", {jobs: jobs, interests: about.interests.sort(), techstack: about.techstack.sort()});
 });
 
+function generateTOC(markdown: string): string {
+    const toc: string[] = [];
+    const slugger = new marked.Slugger(); // Ensure this is correctly used
+
+    // Custom renderer to collect headings with types
+    const renderer = new marked.Renderer();
+    renderer.heading = function (text: string, level: number, raw: string): string {
+        const slug = slugger.slug(raw); // Use slugger instance to generate slugs
+        if (level <= 1) {
+            toc.push(`${'  '.repeat(level - 1)}- [${text}](#${slug})`);
+        }
+        return ''; // Don't render the heading, just collect it
+    };
+
+    // Parse the markdown to collect the headings
+    marked(markdown, { renderer });
+
+    // Create the Table of Contents as markdown
+    const tocMarkdown = `# Table of Contents\n\n${toc.join('\n')}`;
+    return marked(tocMarkdown);
+}
+
+
 router.get('/project/:id', (req: Request, res: Response) => {
     const id = req.params.id;
     const project = db.getProjectById(id);
@@ -58,8 +81,10 @@ router.get('/project/:id', (req: Request, res: Response) => {
 
     // TODO Abfangen ob project == null
     if (project) {
-        const markdown = marked.parse(project?.description);
-        res.render("home/project", {project: project, markdown: markdown});
+        const desc: string = project.description;
+        const markdown = marked.parse(desc);
+        const table_of_content = generateTOC(desc);
+        res.render("home/project", {project: project, markdown: table_of_content + markdown});
     } else {
         res.render("home/error");
     }

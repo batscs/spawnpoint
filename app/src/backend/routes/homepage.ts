@@ -5,7 +5,7 @@ import date from "../utils/common/date";
 import db from "../utils/database/proxy";
 import usageLogger from "../middleware/usage-logger";
 import log from "../utils/common/logger";
-
+import hljs from 'highlight.js'; // Import highlight.js
 import { marked, Slugger, Renderer } from 'marked';
 const renderer = new marked.Renderer();
 
@@ -29,7 +29,15 @@ renderer.link = (href: any, title: string, text: string) => {
     return `<a href="${hrefUrl}"${linkTitle}>${hrefText}</a>`;
 };
 
-marked.setOptions({ renderer });
+marked.setOptions({
+    renderer,
+    highlight: (code, lang) => {
+        // Check if the language is valid for highlight.js
+        const validLang = hljs.getLanguage(lang) ? lang : 'plaintext';
+        return hljs.highlight(code, { language: validLang }).value;
+    },
+    langPrefix: 'hljs language-', // Add a class to the <code> block
+});
 
 router.get('/', usageLogger("HOME"), (req: Request, res: Response) => {
     res.render("home/index");

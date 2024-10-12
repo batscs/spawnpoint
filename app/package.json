@@ -55,6 +55,7 @@
     "has-symbols": "^1.0.3",
     "has-tostringtag": "^1.0.2",
     "hasown": "^2.0.2",
+    "highlight.js": "^11.10.0",
     "hljs": "^6.2.3",
     "http-errors": "^2.0.0",
     "iconv-lite": "^0.4.24",

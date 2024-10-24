@@ -9,6 +9,26 @@ import hljs from 'highlight.js'; // Import highlight.js
 import { marked, Slugger, Renderer } from 'marked';
 const renderer = new marked.Renderer();
 
+const annotationRegexStart = /^:::(\w+)/;
+const annotationRegexEnd = /^:::/;
+
+let inAnnotationBlock = false;
+
+renderer.paragraph = (text) => {
+    const startMatch = text.match(annotationRegexStart);
+    const endMatch = text.match(annotationRegexEnd);
+
+    if (startMatch) {
+        inAnnotationBlock = true;
+        return `<div class="annotation-${startMatch[1]}">\n`;
+    } else if (endMatch) {
+        inAnnotationBlock = false;
+        return '</div>\n';
+    }
+
+    return inAnnotationBlock ? text + '\n' : `<p>${text}</p>\n`;
+};
+
 // this here exists so [video](https://video-url.com/file.mp4) links get rendered into a <video> </video> element
 renderer.link = (href: any, title: string, text: string) => {
     // Extract the relevant fields from href if it's an object

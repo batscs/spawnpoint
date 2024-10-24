@@ -79,16 +79,16 @@ router.get('/about', usageLogger("ABOUT"), (req: Request, res: Response) => {
     res.render("home/about", {jobs: jobs, interests: about.interests.sort(), techstack: about.techstack.sort()});
 });
 
-function generateTOC(markdown: string): string {
-    const toc: string[] = [];
-    const slugger = new marked.Slugger(); // Ensure this is correctly used
+function generateTOC(markdown: string): { title: string, url: string }[] {
+    const toc: { title: string, url: string }[] = [];
+    const slugger = new marked.Slugger();
 
     // Custom renderer to collect headings with types
     const renderer = new marked.Renderer();
     renderer.heading = function (text: string, level: number, raw: string): string {
         const slug = slugger.slug(raw); // Use slugger instance to generate slugs
         if (level <= 1) {
-            toc.push(`${'  '.repeat(level - 1)}- [${text}](#${slug})`);
+            toc.push({ title: text, url: `#${slug}` });
         }
         return ''; // Don't render the heading, just collect it
     };
@@ -96,9 +96,7 @@ function generateTOC(markdown: string): string {
     // Parse the markdown to collect the headings
     marked(markdown, { renderer });
 
-    // Create the Table of Contents as markdown
-    const tocMarkdown = `# Table of Contents\n\n${toc.join('\n')}`;
-    return marked(tocMarkdown);
+    return toc;
 }
 
 
@@ -112,7 +110,7 @@ router.get('/project/:id', (req: Request, res: Response) => {
         const desc: string = project.description;
         const markdown = marked.parse(desc);
         const table_of_content = generateTOC(desc);
-        res.render("home/project", {project: project, markdown: table_of_content + markdown});
+        res.render("home/project", {project: project, markdown: markdown, table_of_contents: table_of_content});
     } else {
         res.render("home/error");
     }

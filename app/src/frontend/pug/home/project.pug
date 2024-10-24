@@ -12,12 +12,33 @@ append script
 
 append content
     div#info
+        div.box
+            p.text-medium.bold Project Info
+
+            a.text-mediumsmall.descriptor Name:
+            a.text-mediumsmall=project.name
+
+            if project.startDate
+                a.text-mediumsmall.descriptor Started:
+                a.text-mediumsmall=project.startDate
+
+            if project.endDate
+                a.text-mediumsmall.descriptor Finished:
+                a.text-mediumsmall=project.endDate
+            else if !project.endDate && project.startDate
+                a.text-mediumsmall.descriptor Finished:
+                a.text-mediumsmall Unfinished
+
+            if project.source
+                a(href=project.source, target="_blank").text-mediumsmall.descriptor Source Code
+
+            if project.preview
+                a(href=project.preview, target="_blank").text-mediumsmall.descriptor Preview / Demo
+
+        div.box
+            p.text-medium.bold Table of Contents
+
+            each heading in table_of_contents
+                a(href=heading.url)=heading.title
     div#description
-        h1=project.name
-        if project.startDate
-            a= "Project Timeline: " + (project.startDate) + " - " + (project.endDate ? project.endDate : "Present")
-        if project.source
-            a(href="project.source" target="_blank") Source Code
-        if project.preview
-            a(href=project.preview target="_blank") Release
         != markdown

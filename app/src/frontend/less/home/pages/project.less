@@ -2,18 +2,59 @@
 
 .content {
   padding: 20px;
-  align-items: center;
   width: 100%;
-  max-width: 1000px;
+  max-width: @max-width;
+
+  align-items: flex-start;
+  justify-content: center;
+
+  flex-direction: row;
+  gap: 10px;
+}
+
+a:link, a:visited {
+  text-decoration: underline;
+  color: @bg-highlight;
+}
+
+#info {
+  margin-bottom: 20px;
+
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  color: @color-primary;
+
+  gap: 50px;
+
+  .box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    a {
+      margin-left: 10px;
+    }
+
+    .descriptor {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  }
 }
 
 #description {
   width: 100%;
-  max-width: @max-width;
   color: @color-primary;
   display: flex;
   flex-direction: column;
   gap: 30px;
+
+  max-width: 800px;
+  padding: 0 10px;
+
+  overflow-y: auto;
+  max-height: 80vh;
 
   h1:after
   {
@@ -22,11 +63,6 @@
     margin-top: 5px;
     border:1.5px solid darken(@color-primary, 10%);
     border-radius: @border-radius-normal;
-  }
-
-  a:link, a:visited {
-    text-decoration: underline;
-    color: @bg-highlight;
   }
 
   p, li, a{
@@ -69,6 +105,8 @@
     //border-bottom: 2px dashed white;
     //border-top: 2px dashed white;
     outline: none;
+    overflow-y: visible;
+    flex-shrink: 0;
   }
 
   blockquote {
@@ -111,34 +149,37 @@
   }
 }
 
-#info {
-  margin-bottom: 20px;
-
-  #name {
-    font-size: 33px;
-    font-weight: bold;
-    background-color: @bg-contrast;
-    color: @color-contrast;
-    width: max-content;
-    padding: 10px;
-    border-radius: @border-radius-normal;
-  }
-
-  display: flex;
-  flex-direction: column;
-  background-color: red;
-  width: 100%;
-}
-
-
-
-@media (max-width: 1000px) {
+@media (max-width: 750px) {
 
   .content {
     max-width: 100vw;
     padding: 20px;
     padding-top: 0;
+    padding-bottom: 20px;
     width: 100%;
+
+    flex-direction: column;
+
+    #description {
+      max-width: 1000px;
+      max-height: 100vh;
+      padding-left: 0;
+    }
+  }
+
+  #info {
+    flex-direction: column;
+    width: 100%;
+    gap: 30px;
+
+    .box {
+      flex-grow: 1;
+      min-width: 140px;
+
+      a {
+        margin-left: 0;
+      }
+    }
   }
 
 }

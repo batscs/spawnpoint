@@ -136,16 +136,28 @@ a:link, a:visited {
   .annotation-warning {
     background-color: rgba(255, 150, 0, 0.15);
     color: white;
+
+    &:before {
+      content: "⚠️";
+    }
   }
 
   .annotation-error {
     background-color: rgba(255, 0, 0, 0.15);
     color: white;
+
+    &:before {
+      content: "🚨";
+    }
   }
 
   .annotation-hint {
     background-color: rgba(0, 120, 255, 0.15);
     color: white;
+
+    &:before {
+      content: "💡";
+    }
   }
 }
 

@@ -83,6 +83,32 @@
     margin: 10px 0;
     background-color: @color-primary;
   }
+
+  [class^="annotation-"] {
+    border-radius: @border-radius-normal;
+    border-left: 5px solid rgba(@color-primary, 60%);
+    padding: 15px;
+  }
+
+  .annotation-success {
+    background-color: rgba(80, 255, 120, 0.15);
+    color: white;
+  }
+
+  .annotation-warning {
+    background-color: rgba(255, 150, 0, 0.15);
+    color: white;
+  }
+
+  .annotation-error {
+    background-color: rgba(255, 0, 0, 0.15);
+    color: white;
+  }
+
+  .annotation-hint {
+    background-color: rgba(0, 120, 255, 0.15);
+    color: white;
+  }
 }
 
 #info {

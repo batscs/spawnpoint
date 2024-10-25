@@ -4,6 +4,8 @@ This is a website to show my portfolio of projects, it features an admin page wh
 
 Feel free to read more about this project on my [dev-blog](https://bats.li/project/010101)
 
+[Live website](https://bats.li)
+
 # Setup
 
 The current projects are filled with some examples of mine, feel free to delete them and setup your own Spawnpoint instance

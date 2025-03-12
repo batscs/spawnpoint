@@ -120,7 +120,8 @@ export default class DatabaseController {
     }
 
     static getJobs = (): job[] => {
-        return loadJson("jobs");
+        const jobs: job[] = loadJson("jobs");
+        return jobs.sort((a, b) => b.id - a.id);  // Sort by id in ascending order
     }
 
     static getAbout = (): about => {
@@ -158,5 +159,9 @@ export default class DatabaseController {
         }
 
         writeJson("projects", dataset);
+    }
+
+    static saveJobs(jobs: job[]) {
+        writeJson("jobs", jobs);
     }
 }

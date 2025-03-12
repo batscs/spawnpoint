@@ -22,6 +22,26 @@ router.get('/admin/panel', (req: Request, res: Response) => {
     }
 });
 
+router.get('/admin/jobs', (req: Request, res: Response) => {
+    if(req.cookies && auth.authenticateToken(req.cookies["token"])) {
+        let jobs = db.getJobs();
+        res.render("admin/jobs", {jobs})
+    } else {
+        res.redirect("/admin?error=" + encodeURIComponent("Incorrect username or password"));
+    }
+});
+
+router.post('/admin/jobs', (req: Request, res: Response) => {
+    if(req.cookies && auth.authenticateToken(req.cookies["token"])) {
+        let body = req.body;
+        let jobs = body.jobs;
+        db.saveJobs(jobs);
+        res.send({ success: true });
+    } else {
+        res.send({ error: "unauthorized" });
+    }
+});
+
 router.get('/admin/logout', (req: Request, res: Response) => {
     res.clearCookie("token");
     res.redirect("/admin/");

@@ -1,0 +1,12 @@
+div.job.draggable
+    //a.drag-handle="="
+    div.job-details.collapsable
+        a.not-collapsable Name
+        input.job-name.not-collapsable(value=job.name)
+        a Title
+        input.job-title(value=job.title)
+        a Timeline
+        input.job-timeline(value=job.timeline)
+        a Description
+        textarea.job-description(contenteditable)=job.description
+    a.delete X

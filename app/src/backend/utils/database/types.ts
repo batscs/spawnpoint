@@ -17,6 +17,7 @@ type config = {
 }
 
 type job = {
+    id: number,
     name: string,
     title: string,
     timeline: string,

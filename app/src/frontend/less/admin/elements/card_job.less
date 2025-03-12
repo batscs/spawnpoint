@@ -1,0 +1,62 @@
+@import "../variables.less";
+
+.delete {
+  flex-grow: 0;
+  color: white;
+  font-weight: bold;
+  background-color: red;
+  height: 25px;
+  width: 25px;
+  line-height: 25px;
+  text-align: center;
+}
+
+.drag-handle {
+  flex-grow: 0;
+  color: white;
+  font-weight: bold;
+  background-color: gray;
+  height: 25px;
+  width: 25px;
+  line-height: 25px;
+  cursor: grab;
+  text-align: center;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+  background-color: #ddd;
+}
+
+.job {
+  background-color: @accent;
+  width: 900px;
+  padding: 0 20px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+
+  .job-details {
+    flex-grow: 1;
+    display: flex;
+    cursor: pointer;
+    flex-direction: column;
+    padding: 20px 0;
+
+    input, textarea {
+      margin-bottom: 20px;
+    }
+
+    textarea {
+      height: auto;
+      resize: vertical;
+    }
+  }
+}
+
+.job.drag-over {
+  border-color: #007BFF;
+  background-color: orange;
+}

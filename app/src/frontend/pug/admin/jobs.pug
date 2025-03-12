@@ -1,0 +1,16 @@
+extends fragments/structure
+
+append style
+    link(rel="stylesheet", href="/static/css/admin/elements/card_job.css")
+    link(rel="stylesheet", href="/static/css/admin/pages/jobs.css")
+
+append script
+    script(src="/static/js/admin/jobs.js")
+    script(src="/static/js/admin/jobs-save.js")
+
+append content
+    form.jobs
+        button(type="submit") Save All
+        button.create(type="button") New Job
+        each job in jobs
+            include elements/card_job.pug

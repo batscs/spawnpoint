@@ -1,0 +1,23 @@
+.jobs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.collapsable.job {
+  cursor: grab;
+}
+
+.collapsable.job.dragging {
+  opacity: 0.5;
+}
+
+.collapsable {
+  cursor: pointer;
+}
+
+.collapsed {
+  > *:not(.not-collapsable) {
+    display: none;
+  }
+}

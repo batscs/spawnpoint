@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 name: job.querySelector(".job-name")?.value.trim() || "",
                 title: job.querySelector(".job-title")?.value.trim() || "",
                 timeline: job.querySelector(".job-timeline")?.value.trim() || "",
-                description: job.querySelector(".job-description")?.innerText.trim() || ""
+                description: job.querySelector(".job-description")?.value.trim() || ""
             };
         });
 

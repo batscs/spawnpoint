@@ -1,8 +1,9 @@
 @import "../variables";
 
 .container {
-  gap: 100px;
   width: 100%;
+  padding-bottom: 100px;
+  padding-top: 20px;
 }
 
 .stacks {
@@ -10,7 +11,8 @@
   flex-direction: column;
   gap: 30px;
   color: @color-primary;
-  width: max-content;
+  width: 300px;
+  flex-shrink: 0;
 
   .stack {
     display: flex;
@@ -48,6 +50,9 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 2px @bg-contrast solid;
+    margin-top: 10px;
   }
 
   h1 {
@@ -79,11 +84,24 @@
 }
 
 .markdown {
-  line-height: 2;
+  line-height: 1.5;
+  font-size: 18px;
+
+  li + li {
+    margin-top: 10px;
+  }
+
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
 
   a:link, a:visited {
     color: @bg-highlight;
     text-decoration: underline;
+  }
+
+  p {
+    text-align: justify;
   }
 }
 

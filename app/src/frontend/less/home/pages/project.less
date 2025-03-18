@@ -4,7 +4,6 @@
   padding-top: 20px;
 
   align-items: flex-start;
-  justify-content: space-between;
 
   flex-direction: row;
 }
@@ -19,7 +18,8 @@ a:link, a:visited {
 
   display: flex;
   flex-direction: column;
-  width: 350px;
+  width: 300px;
+  flex-shrink: 0;
   color: @color-primary;
 
   gap: 50px;
@@ -50,12 +50,14 @@ a:link, a:visited {
 
   overflow-y: auto;
   max-height: 80vh;
+  line-height: 1.2;
+  padding-right: 20px;
 
   h1:after
   {
     content:' ';
     display:block;
-    margin-top: 5px;
+    margin-top: 10px;
     border:1.5px solid darken(@color-primary, 10%);
     border-radius: @border-radius-normal;
   }
@@ -65,7 +67,8 @@ a:link, a:visited {
   }
 
   p {
-    color: darken(@color-primary, 8%)
+    color: darken(@color-primary, 8%);
+    text-align: justify;
   }
 
   strong {

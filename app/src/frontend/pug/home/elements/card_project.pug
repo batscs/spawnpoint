@@ -1,9 +1,13 @@
-div.card-project-wrapper
-    div.info
-        p.name.text-big=project.name
-        p=project.startDate + " - " + project.endDate
-    a(href="/project/" + project.id).card-project
+div.card-project-wrapper.effect-shine
+    a.info(href="/project/" + project.id)
         img.img(src="/static/resources/projects/" + project.banner)
+        div.title
+            p.name.text-big=project.name
+            p.text-mediumsmall="Started: " + project.startDate
+            if project.endDate
+                p.text-mediumsmall="Finished: " + project.endDate
+
+    a.card-project
         div.topics
             for detail in project.details
                 p=detail

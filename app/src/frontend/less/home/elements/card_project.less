@@ -1,169 +1,151 @@
 @import "../variables.less";
 
-@animation-time_forward: 0.6s;
-@animation-time_backwards: 0.5s;
+@shine-color: @bg-primary;  // Adjust shine color
+@shine-thickness: 16%;  // Adjust thickness (percentage of element width)
+@shine-speed: 1.2s;  // Adjust animation speed
+@shine-angle: -20deg;  // Adjust shine angle
+@border-radius-project-element: @border-radius-normal;
 
-.card-project-wrapper:hover .info {
-    animation: frontCard @animation-time_forward forwards;
-}
+.effect-shine {
+    position: relative;
+    overflow: hidden;
 
-.card-project-wrapper:hover .card-project {
-    animation: backCard @animation-time_forward forwards;
-}
-
-.card-project-wrapper:not(:hover) .info {
-    animation: frontCardReverse @animation-time_backwards forwards;
-}
-
-.card-project-wrapper:not(:hover) .card-project {
-    animation: backCardReverse @animation-time_backwards forwards;
-}
-
-@keyframes frontCard {
-    0% {
-        z-index: 2;
-        transform: scale(1);
-    }
-    50% {
+    &::before {
+        content: "";
+        position: absolute;
         top: 0;
-        z-index: 2;
-        transform: scale(0.95);
+        left: -150%;
+        width: 150%;
+        height: 100%;
+        background: linear-gradient(@shine-angle,
+        fade(@shine-color, 0) (50% - @shine-thickness),
+        @shine-color 50%,
+        fade(@shine-color, 0) (50% + @shine-thickness)
+        );
+        transform: skewX(@shine-angle);
+        transition: none;
+        opacity: 0; // Hide before hover
     }
-    100% {
-        z-index: -9;
-        transform: scale(0.9);
+
+    &:hover::before {
+        opacity: 1;
+        animation: shine @shine-speed ease-out;
     }
 }
 
-@keyframes backCard {
-    0% {
-        transform: scale(0.95);
-        top: 0;
+@keyframes shine {
+    from {
+        left: -150%;
     }
-    50% {
-        transform: scale(0.975);
-        top: 30px;
-    }
-    100% {
-        transform: scale(1);
-        top: 0;
+    to {
+        left: 150%;
     }
 }
 
-@keyframes frontCardReverse {
-    0% {
-        z-index: -9;
-        transform: scale(0.9);
-    }
-    50% {
-        top: 0;
-        z-index: 2;
-        transform: scale(0.95);
-    }
-    100% {
-        z-index: 2;
-        transform: scale(1);
-    }
-}
 
-@keyframes backCardReverse {
-    0% {
-        transform: scale(1);
-        top: 0;
-    }
-    50% {
-        transform: scale(0.975);
-        top: 30px;
-    }
-    100% {
-        transform: scale(0.95);
-        top: 0;
-    }
-}
 
 .card-project-wrapper {
-    padding-top: 10px;
-    width: 350px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
-}
+    max-width: 1000px;
+    width: 90vw;
 
+    background-color: @bg-accent;
+    border-radius: @border-radius-project-element;
+    box-shadow: @box-shadow-light;
+    //border: 3px solid @bg-contrast;
+    overflow: hidden;
+
+    gap: 0;
+}
 
 .card-project {
     overflow: visible;
     background-size: 100% 100%;
     position: relative;
-    background-color: @bg-accent;
     color: @color-accent;
 
     display: flex;
     flex-direction: column;
     align-items: end;
     justify-content: end;
-    gap: 10px;
 
     text-decoration: none;
-    height: 250px;
+    height: 100%;
     width: 100%;
 
-    box-shadow: @box-shadow-light;
+    padding: 0;
+    margin: 0;
+}
 
-    transform: scale(0.95);
+.info:hover > img {
+    //filter: grayscale(0) contrast(1);
+    //transition: 0.1s;
+}
+
+.card-project-wrapper:hover > .card-project > .topics {
+    box-shadow: 0 3px 0 @bg-highlight inset;
+    transition: 0.1s;
 }
 
 .img {
+    //filter: brightness(0.6) contrast(1.2) sepia(1) hue-rotate(220deg) saturate(0.5);
+    //filter: grayscale(1) contrast(1.2);
+    transition: 0.1s;
     height: 200px;
-    width: 100%;
+    width: 350px;
     flex-shrink: 0;
     background-color: @color-primary;
+    border-radius: @border-radius-project-element;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 .info {
-    height: 150px;
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    flex-direction: row;
+    justify-content: flex-start;
     align-items: center;
-
+    gap: 60px;
+    text-decoration: none;
     box-sizing: border-box;
-    padding: 10px 10px;
 
     position: relative;
 
-    background-color: @bg-accent;
-    box-shadow: @box-shadow-light;
     color: @color-accent;
-    width: 80%;
+    width: 100%;
+    flex-shrink: 0;
 
-    border-radius: @border-radius-normal;
-
-    top: 80px;
+    .title {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
 
     .name {
         font-weight: bold;
         flex-shrink: 0;
-        text-align: center;
-        max-width: 100%;
         line-break: auto;
     }
 
-    z-index: 2;
 }
 
 .topics {
+    transition: 0.1s;
+    box-shadow: 0 3px 0 @bg-contrast inset;
     display: flex;
     flex-direction: row;
     justify-content: start;
     align-items: center;
     gap: 10px;
-    line-height: 1.1;
-    height: 3em;
+    height: 4em;
 
-    background-color: @bg-accent;
+    //background-color: @bg-accent;
     width: 100%;
     overflow-x: auto;
+    overflow-y: visible;
 
     padding: 5px 20px;
 
@@ -173,5 +155,37 @@
         height: min-content;
         padding: 5px 10px;
         border-radius: @border-radius-normal;
+    }
+}
+
+@media (max-width: 800px) {
+    .title :not(.name) {
+        display: none;
+    }
+
+    .card-project-wrapper {
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .img {
+        width: 100%;
+    }
+
+    .info {
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+        gap: 0;
+        max-width: 100%;
+
+        .title {
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
     }
 }

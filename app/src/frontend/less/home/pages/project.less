@@ -1,15 +1,12 @@
 @import "../variables";
 
 .content {
-  padding: 20px;
-  width: 100%;
-  max-width: @max-width;
+  padding-top: 20px;
 
   align-items: flex-start;
-  justify-content: center;
+  justify-content: space-between;
 
   flex-direction: row;
-  gap: 10px;
 }
 
 a:link, a:visited {
@@ -48,10 +45,8 @@ a:link, a:visited {
   color: @color-primary;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   gap: 30px;
-
-  max-width: 800px;
-  padding: 0 10px;
 
   overflow-y: auto;
   max-height: 80vh;
@@ -86,7 +81,8 @@ a:link, a:visited {
   }
 
   img, video {
-    max-width: 100%;
+    max-width: 800px;
+    width: 100%;
     border-radius: @border-radius-normal;
     margin: 0 auto;
   }
@@ -161,7 +157,7 @@ a:link, a:visited {
   }
 }
 
-@media (max-width: 750px) {
+@media (max-width: 900px) {
 
   .content {
     max-width: 100vw;
@@ -180,7 +176,7 @@ a:link, a:visited {
   }
 
   #info {
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
     gap: 30px;
 

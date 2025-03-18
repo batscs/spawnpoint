@@ -76,7 +76,8 @@ function decodeHtmlEntities(text: string): string {
     return text.replace(/&quot;/g, '"')
         .replace(/&amp;/g, '&')
         .replace(/&lt;/g, '<')
-        .replace(/&gt;/g, '>');
+        .replace(/&gt;/g, '>')
+        .replace(/&#39;/g, "'");
 }
 
 function generateTOC(markdown: string): { title: string, url: string }[] {

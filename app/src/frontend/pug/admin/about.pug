@@ -1,0 +1,18 @@
+extends fragments/structure
+
+append script
+    script(src="/static/js/admin/about-save.js")
+
+append content
+    div.element
+        a Techstack
+        input.techstack(value=about.techstack)
+    div.element
+        a Interests
+        input.interests(value=about.interests)
+    div.element
+        a Email
+        input.email(value=about.email)
+    button.element(type="submit") Save All
+
+

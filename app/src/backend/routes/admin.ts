@@ -31,11 +31,31 @@ router.get('/admin/jobs', (req: Request, res: Response) => {
     }
 });
 
+router.get('/admin/about', (req: Request, res: Response) => {
+    if(req.cookies && auth.authenticateToken(req.cookies["token"])) {
+        let about = db.getAbout();
+        res.render("admin/about", {about})
+    } else {
+        res.redirect("/admin?error=" + encodeURIComponent("Incorrect username or password"));
+    }
+});
+
 router.post('/admin/jobs', (req: Request, res: Response) => {
     if(req.cookies && auth.authenticateToken(req.cookies["token"])) {
         let body = req.body;
-        let jobs = body.jobs;
+        let jobs: job[] = body.jobs;
         db.saveJobs(jobs);
+        res.send({ success: true });
+    } else {
+        res.send({ error: "unauthorized" });
+    }
+});
+
+router.post('/admin/about', (req: Request, res: Response) => {
+    if(req.cookies && auth.authenticateToken(req.cookies["token"])) {
+        let body = req.body;
+        let about: about = body.about;
+        db.saveAbout(about);
         res.send({ success: true });
     } else {
         res.send({ error: "unauthorized" });

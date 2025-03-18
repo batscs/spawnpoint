@@ -15,6 +15,7 @@ input, textarea {
   outline: none;
   border: none;
   border-radius: 0px;
+  width: 100%;
 }
 
 a {
@@ -26,6 +27,7 @@ a {
   flex-direction: column;
   align-items: center;
   height: 100vh;
+  gap: 20px;
 
   flex-grow: 1;
 
@@ -33,6 +35,14 @@ a {
 
   padding: 20px;
   box-sizing: border-box;
+
+  .element {
+    width: 100%;
+  }
+
+  button, input {
+    padding: 7px 10px;
+  }
 }
 
 a,p,div,h1,h2,h3,h4,h5,h6 {

@@ -164,4 +164,8 @@ export default class DatabaseController {
     static saveJobs(jobs: job[]) {
         writeJson("jobs", jobs);
     }
+
+    static saveAbout(about: about) {
+        writeJson("about", about);
+    }
 }

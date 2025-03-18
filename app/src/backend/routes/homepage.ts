@@ -72,6 +72,13 @@ router.get('/about', usageLogger("ABOUT"), (req: Request, res: Response) => {
     res.render("home/about", {jobs: jobs, interests: about.interests.sort(), techstack: about.techstack.sort()});
 });
 
+function decodeHtmlEntities(text: string): string {
+    return text.replace(/&quot;/g, '"')
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>');
+}
+
 function generateTOC(markdown: string): { title: string, url: string }[] {
     const toc: { title: string, url: string }[] = [];
     const slugger = new marked.Slugger();
@@ -79,18 +86,21 @@ function generateTOC(markdown: string): { title: string, url: string }[] {
     // Custom renderer to collect headings with types
     const renderer = new marked.Renderer();
     renderer.heading = function (text: string, level: number, raw: string): string {
-        const slug = slugger.slug(raw); // Use slugger instance to generate slugs
+        const slug = slugger.slug(raw); // Generate slugs
         if (level <= 1) {
-            toc.push({ title: text, url: `#${slug}` });
+            const cleanText = decodeHtmlEntities(text); // Fix escaped characters
+            toc.push({ title: cleanText, url: `#${slug}` });
+            console.log(cleanText); // Debugging output
         }
         return ''; // Don't render the heading, just collect it
     };
 
     // Parse the markdown to collect the headings
-    marked(markdown, { renderer });
+    marked.parse(markdown, { renderer });
 
     return toc;
 }
+
 
 
 router.get('/project/:id', (req: Request, res: Response) => {

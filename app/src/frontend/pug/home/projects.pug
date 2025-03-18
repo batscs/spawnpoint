@@ -1,0 +1,18 @@
+extends fragments/structure
+
+append style
+    link(rel="stylesheet", href="/static/css/home/pages/projects.css")
+    link(rel="stylesheet", href="/static/css/home/elements/card_project.css")
+
+append script
+    script(src="/static/js/home/projects.js")
+
+append content
+    a#name.text-large I BUILD & DESIGN STUFF!
+    div.project-topics
+        each topic in topics
+            a.text-medium=topic
+    div.projects.flex-row.gap-40px
+        each project in projects
+            // fetching with js & api filtered
+            //include elements/card_project.pug

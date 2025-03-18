@@ -143,7 +143,7 @@ router.get('/projects', usageLogger("PROJECTS"), (req: Request, res: Response) =
     });
 
 
-    res.render('home/work', {projects: projects, topics: Array.from(topics).sort()});
+    res.render('home/projects', {projects: projects, topics: Array.from(topics).sort()});
 });
 
 export default router;

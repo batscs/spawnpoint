@@ -1,4 +1,4 @@
-a(href="/project/" + project.id).card-project-wrapper.effect-shine
+a(href="/project/" + project.id).card-project-wrapper.effect-shine(data-start-date=project.startDate, data-topics=JSON.stringify(project.topics))
     img.img(src="/static/resources/projects/" + project.banner)
     div.info
         div.title

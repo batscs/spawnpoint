@@ -1,70 +1,76 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const topicLinks = document.querySelectorAll('.project-topics a');
-    const projectsContainer = document.querySelector('.projects');
-    const defaultTopic = "software";
+document.addEventListener("DOMContentLoaded", () => {
+    filterProjects(); // Ensure only relevant projects are shown on load
 
-    // Function to handle topic selection
-    function handleTopicClick(topic) {
-        // Disable all topic links while loading
-        topicLinks.forEach(link => link.disabled = true);
+    document.querySelector('.search').addEventListener('input', filterProjects);
 
-        const body = topic === "all" ? {} : { filter: topic };
+    // "unclick" a filterer selection box
+    document.addEventListener("click", (event) => {
+        const filterDivs = document.querySelectorAll('.filter');
+        const filterButtons = document.querySelectorAll('.filter-topics button, .filter-years button');
 
-        fetch('/api/projects', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(body)
-        })
-            .then(response => response.json())
-            .then(async data => {
-                // Clear the projects container
-                projectsContainer.innerHTML = '';
-
-                // Fetch and append each project's HTML content
-                for (const project of data.projects) {
-                    const response = await fetch(`/api/html/project/${project.id}`);
-                    const html = await response.text();
-
-                    projectsContainer.insertAdjacentHTML('beforeend', html);
-                }
-
-                // Re-enable the topic links after loading is complete
-                topicLinks.forEach(link => link.disabled = false);
-            })
-            .catch(error => {
-                console.error('Error fetching projects:', error);
-                // Re-enable the topic links in case of error
-                topicLinks.forEach(link => link.disabled = false);
-            });
-    }
-
-    // Attach click event listeners to each topic link
-    topicLinks.forEach(link => {
-        link.addEventListener('click', function (e) {
-            e.preventDefault(); // Prevent default anchor behavior
-
-            // If the link is disabled, prevent click
-            if (this.disabled) return;
-
-            const topic = this.textContent.trim(); // Get the topic text
-
-            // Remove the .selected class from all links
-            topicLinks.forEach(link => link.classList.remove('selected'));
-
-            // Add the .selected class to the clicked link
-            this.classList.add('selected');
-
-            // Fetch projects for the selected topic
-            handleTopicClick(topic);
+        // If the click is outside the filter container or button, hide the filters
+        filterDivs.forEach(filterDiv => {
+            const button = filterDiv.previousElementSibling; // Get the button that opened the filter
+            if (!filterDiv.contains(event.target) && !button.contains(event.target)) {
+                filterDiv.classList.add('hidden');
+                button.classList.remove('active');
+            }
         });
     });
-
-    // Automatically load the default topic when the page loads
-    const defaultLink = Array.from(topicLinks).find(link => link.textContent.trim() === defaultTopic);
-    if (defaultLink) {
-        defaultLink.classList.add('selected'); // Add .selected to the default topic
-        handleTopicClick(defaultTopic); // Load the projects for the default topic
-    }
 });
+
+// Toggle filter dropdown visibility
+function toggleFilter(event) {
+    const button = event.target;
+    const filterDiv = button.nextElementSibling;
+
+    if (filterDiv && filterDiv.classList.contains("filter")) {
+        filterDiv.classList.toggle("hidden");
+        button.classList.toggle("active");
+    }
+}
+
+// Filtering projects based on selected topics and years
+function filterProjects() {
+    // Get search query (convert to lowercase for case-insensitive matching)
+    const searchQuery = document.querySelector('.search').value.toLowerCase().trim();
+
+    // Get selected topics
+    const selectedTopics = Array.from(document.querySelectorAll('.filter-topics input:checked'))
+        .map(input => input.value);
+
+    // Get selected years
+    const selectedYears = Array.from(document.querySelectorAll('.filter-years input:checked'))
+        .map(input => input.value);
+
+    // Get all project cards
+    const projects = document.querySelectorAll('.card-project-wrapper');
+
+    projects.forEach(project => {
+        const projectName = project.querySelector('.name').textContent.toLowerCase();
+        const projectStartDate = project.dataset.startDate;
+        const projectEndDate = project.querySelector('.text-mediumsmall:nth-of-type(2)')?.textContent.trim() || "";
+        const projectTopics = JSON.parse(project.dataset.topics).map(topic => topic.toLowerCase());
+        const projectDetails = Array.from(project.querySelectorAll('.info p')).map(p => p.textContent.toLowerCase());
+
+        // Combine all searchable content
+        const projectContent = [
+            projectName,
+            projectStartDate,
+            projectEndDate,
+            ...projectTopics,
+            ...projectDetails
+        ].join(" ");
+
+        // Check if project matches search query
+        const matchesSearch = searchQuery === "" || projectContent.includes(searchQuery);
+
+        // Check if project matches selected filters
+        const matchesTopics = selectedTopics.length === 0 || projectTopics.some(topic => selectedTopics.includes(topic));
+        const matchesYear = selectedYears.length === 0 || selectedYears.includes(projectStartDate.split("-")[0]);
+
+        // Show or hide project based on filters
+        project.style.display = matchesSearch && matchesTopics && matchesYear ? "flex" : "none";
+    });
+}
+

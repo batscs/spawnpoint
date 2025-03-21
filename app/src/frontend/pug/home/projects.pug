@@ -9,10 +9,30 @@ append script
 
 append content
     a#name.text-large I BUILD & DESIGN STUFF!
-    div.project-topics
-        each topic in topics
-            a.text-medium=topic
+
+    div.filter-container
+        input.search.text-small(placeholder="search...")
+
+        div.filter-topics
+            button.text-small(onclick="toggleFilter(event)") Select Topics
+                span.arrow ▼
+            div.hidden.filter
+                - var topics = Array.from(new Set([].concat(...projects.map(p => p.topics))))
+                each topic in topics
+                    label
+                        input.text-small(type="checkbox", checked, value=topic, onchange="filterProjects()")
+                        |  #{topic}
+
+        div.filter-years
+            button.text-small(onclick="toggleFilter(event)") Select Years
+                span.arrow ▼
+            div.filter.hidden
+                - var years = Array.from(new Set([].concat(...projects.map(p => p.startDate.split("-")[0]))))
+                each year in years
+                    label
+                        input.text-small(type="checkbox", checked, value=year, onchange="filterProjects()")
+                        |  #{year}
+
     div.projects.flex-row.gap-40px
         each project in projects
-            // fetching with js & api filtered
-            //include elements/card_project.pug
+            include elements/card_project.pug

@@ -1,13 +1,13 @@
-div.card-project-wrapper.effect-shine
-    a.info(href="/project/" + project.id)
-        img.img(src="/static/resources/projects/" + project.banner)
+a(href="/project/" + project.id).card-project-wrapper.effect-shine
+    img.img(src="/static/resources/projects/" + project.banner)
+    div.info
         div.title
             p.name.text-big=project.name
-            p.text-mediumsmall="Started: " + project.startDate
+            p.text-mediumsmall=project.startDate
             if project.endDate
-                p.text-mediumsmall="Finished: " + project.endDate
-
-    a.card-project
+                p.text-mediumsmall=" - " + project.endDate
         div.topics
+            for category in project.topics
+                p.category=category
             for detail in project.details
                 p=detail

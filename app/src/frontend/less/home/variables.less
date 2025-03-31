@@ -5,6 +5,7 @@
 @bg-accent: #1E2129; // slight difference to primary
 @bg-contrast: #FFFFFF; // strong difference to primary
 @bg-highlight: #FFD300;
+@bg-element: #3d4670;
 
 @bg-body: @bg-primary;
 
@@ -16,8 +17,17 @@
 @font-primary: "SF UI Text";
 
 @border-radius-normal: 2px;
+@border-radius-project-element: 15px;
 
 @box-shadow-normal: 10px 10px 0px -2px darken(@bg-accent, 5%);
 @box-shadow-light: 10px 10px 0px -2px darken(@bg-accent, 5%);
 
 @max-width: 1200px;
+
+@keyframes wiggle {
+  0% { transform: rotate(var(--start-angle, 0deg)); }
+  25% { transform: rotate(calc(var(--start-angle, 0deg) + 15deg)); }
+  50% { transform: rotate(calc(var(--start-angle, 0deg) - 12deg)); }
+  75% { transform: rotate(calc(var(--start-angle, 0deg) + 5deg)); }
+  100% { transform: rotate(var(--start-angle, 0deg)); }
+}

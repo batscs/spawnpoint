@@ -1,6 +1,8 @@
 @import "../variables";
 .content {
     align-items: center;
+    max-width: 1000px;
+    width: 90vw;
 }
 
 .projects {
@@ -26,100 +28,6 @@
     border-radius: @border-radius-normal;
 }
 
-.filter-container {
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
-    align-items: flex-start;
-
-    input:not([type='checkbox']) {
-        width: 200px;
-        padding: 10px 15px;
-        box-sizing: border-box;
-        height: 40px;
-        background-color: transparent;
-        border: none;
-        outline: none;
-        color: @bg-contrast;
-        border-bottom: 3px solid @bg-contrast;
-    }
-
-    button {
-        background-color: @bg-contrast;
-        color: @color-contrast;
-        border: none;
-        padding: 10px 15px;
-        width: 200px;
-        height: 40px;
-        cursor: pointer;
-        font-weight: bold;
-        border-radius: @border-radius-normal;
-        transition: background-color 0.3s ease;
-        text-align: left;
-
-        display: flex;
-        align-items: center;
-        box-sizing: border-box;
-    }
-
-    button .arrow {
-        display: inline-block;
-        margin-left: auto;
-        transition: transform 0.3s ease;
-    }
-
-    button.active {
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-    }
-
-    /* Rotate arrow when button has .active */
-    button.active .arrow {
-        transform: rotate(180deg);
-    }
-
-    .hidden {
-        display: none;
-    }
-
-    .filter {
-        position: absolute;
-        flex-direction: column;
-        gap: 8px;
-        background-color: @bg-contrast;
-        padding: 5px;
-        box-sizing: border-box;
-        z-index: 999;
-        width: 200px;
-    }
-
-    .filter:not(.hidden) {
-        display: flex;
-        opacity: 1;
-    }
-
-    label {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        cursor: pointer;
-        font-size: 14px;
-        color: #333;
-        padding: 8px;
-        border-radius: @border-radius-normal;
-    }
-
-    label:hover {
-        background: lighten(@bg-highlight, 30%);
-        color: @color-highlight;
-    }
-
-    /* Custom Checkbox */
-    input[type="checkbox"] {
-    }
-
-}
-
 
 @media (max-width: 800px) {
 
@@ -130,10 +38,6 @@
 
     #name {
         margin-bottom: 0;
-    }
-
-    .filter-container {
-        flex-direction: column;
     }
 
     .project-topics {

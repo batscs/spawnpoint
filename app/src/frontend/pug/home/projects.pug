@@ -1,6 +1,10 @@
 extends fragments/structure
 
+append var
+    - website_title = "Projects"
+
 append style
+    link(rel="stylesheet", href="/static/css/home/elements/projects_filter.css")
     link(rel="stylesheet", href="/static/css/home/pages/projects.css")
     link(rel="stylesheet", href="/static/css/home/elements/card_project.css")
 
@@ -8,13 +12,13 @@ append script
     script(src="/static/js/home/projects.js")
 
 append content
-    a#name.text-large I BUILD & DESIGN STUFF!
+    a#name.text-large Im building & learning stuff
 
     div.filter-container
-        input.search.text-small(placeholder="search...")
+        input.search.text-small(placeholder="Search for keywords...")
 
-        div.filter-topics
-            button.text-small(onclick="toggleFilter(event)") Select Topics
+        div.filter-wrapper.filter-topics
+            button.element.text-small(onclick="toggleFilter(event)") Select Topics
                 span.arrow ▼
             div.hidden.filter
                 - var topics = Array.from(new Set([].concat(...projects.map(p => p.topics))))
@@ -23,8 +27,8 @@ append content
                         input.text-small(type="checkbox", checked, value=topic, onchange="filterProjects()")
                         |  #{topic}
 
-        div.filter-years
-            button.text-small(onclick="toggleFilter(event)") Select Years
+        div.filter-wrapper.filter-years
+            button.element.text-small(onclick="toggleFilter(event)") Select Years
                 span.arrow ▼
             div.filter.hidden
                 - var years = Array.from(new Set([].concat(...projects.map(p => p.startDate.split("-")[0]))))

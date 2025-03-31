@@ -1,4 +1,4 @@
-a(href="/project/" + project.id).card-project-wrapper.effect-shine(data-start-date=project.startDate, data-topics=JSON.stringify(project.topics))
+a(href="/project/" + project.id).element.card-project-wrapper.effect-shine(data-start-date=project.startDate, data-topics=JSON.stringify(project.topics))
     img.img(src="/static/resources/projects/" + project.banner)
     div.info
         div.title
@@ -11,3 +11,4 @@ a(href="/project/" + project.id).card-project-wrapper.effect-shine(data-start-da
                 p.category=category
             for detail in project.details
                 p=detail
+    p.arrow-right

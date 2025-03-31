@@ -1,9 +1,13 @@
 extends fragments/structure
 
+append var
+    - website_title = project.name
+
 append style
     // TODO roboto mono download
     link(href='https://fonts.googleapis.com/css?family=Roboto Mono' rel='stylesheet')
     link(rel="stylesheet", href="/static/css/home/pages/project.css")
+    link(rel="stylesheet", href="/static/css/home/elements/markdown.css")
     link(rel="stylesheet", href="/static/css/external/hljs/monokai-sublime.css")
 
 append script
@@ -40,5 +44,5 @@ append content
 
             each heading in table_of_contents
                 a(href=heading.url)=heading.title
-    div#description
+    div.markdown
         != markdown

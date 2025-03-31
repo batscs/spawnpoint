@@ -1,11 +1,13 @@
 doctype html
+block var
+
 html(lang="en")
     head
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         block style
             link(rel='stylesheet', href='/static/css/stylesheet.css')
-        title bats.li - spawnpoint
+        title=website_title || "bats.li"
     body
         block body
 

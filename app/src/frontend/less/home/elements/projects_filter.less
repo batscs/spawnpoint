@@ -1,0 +1,148 @@
+@import "../variables.less";
+
+.filter-container {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: flex-start;
+  width: 100%;
+
+  > * {
+    flex-grow: 1;
+    flex-shrink: 0;
+    box-sizing: border-box;
+  }
+
+  .filter-wrapper {
+    position: relative;
+  }
+
+  .search {
+    padding: 10px 15px;
+    box-sizing: border-box;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: @bg-contrast;
+    background-color: @bg-accent;
+    font-weight: bold;
+    border-bottom: 3px solid @bg-element;
+
+    &:focus {
+      border-color: @bg-highlight;
+    }
+  }
+
+  button {
+    padding: 10px 15px;
+    height: 40px;
+    width: 100%;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    text-align: left;
+
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+  }
+
+  button .arrow {
+    display: inline-block;
+    margin-left: auto;
+    transition: transform 0.3s ease;
+    --start-angle: 0;
+  }
+
+  button.active {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+
+  /* Rotate arrow when button has .active */
+  button.active .arrow {
+    transform: rotate(180deg);
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .filter {
+    position: absolute;
+    flex-direction: column;
+    gap: 8px;
+    padding: 5px;
+    box-sizing: border-box;
+    z-index: 999;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: @bg-accent;
+    border: 2px solid @bg-element;
+
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+  }
+
+  .filter:not(.hidden) {
+    display: flex;
+    opacity: 1;
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 8px;
+    padding-left: 15px;
+    font-weight: bold;
+    color: @color-primary;
+    user-select: none;
+  }
+
+  input[type="checkbox"] {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border: 1px solid @bg-highlight;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+  }
+
+  input[type="checkbox"]:checked {
+    background: @bg-primary;
+  }
+
+  input[type="checkbox"]::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: transparent;
+    transition: background 0.2s ease-in-out;
+  }
+
+  input[type="checkbox"]:checked::before {
+    background-color: @bg-highlight;
+  }
+
+}
+
+@media (max-width: 800px) {
+  .filter-container {
+    flex-direction: column;
+
+    > * {
+      width: 100%;
+    }
+  }
+}

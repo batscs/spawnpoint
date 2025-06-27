@@ -17,15 +17,15 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=$TRAEFIK_NETWORK"
-      - "traefik.http.routers.batsli-http.rule=Host(`$DOMAIN`)"
-      - "traefik.http.routers.batsli-http.entryPoints=web"
-      - "traefik.http.routers.batsli-http.middlewares=batsli-https-redirect"
-      - "traefik.http.middlewares.batsli-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.routers.batsli-https.rule=Host(`$DOMAIN`)"
-      - "traefik.http.routers.batsli-https.entryPoints=websecure"
-      - "traefik.http.routers.batsli-https.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.batsli-https.tls=true"
-      - "traefik.http.services.batsli-https.loadbalancer.server.port=80"
+      - "traefik.http.routers.spawnpoint-http.rule=Host(`$DOMAIN`)"
+      - "traefik.http.routers.spawnpoint-http.entryPoints=web"
+      - "traefik.http.routers.spawnpoint-http.middlewares=spawnpoint-https-redirect"
+      - "traefik.http.middlewares.spawnpoint-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.spawnpoint-https.rule=Host(`$DOMAIN`)"
+      - "traefik.http.routers.spawnpoint-https.entryPoints=websecure"
+      - "traefik.http.routers.spawnpoint-https.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.spawnpoint-https.tls=true"
+      - "traefik.http.services.spawnpoint-https.loadbalancer.server.port=3000"
       
 networks:
   default:

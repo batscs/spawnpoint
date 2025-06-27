@@ -2,7 +2,7 @@ tr
     td.no-mobile
         img(src="/static/resources/projects/" + project.banner)
     td
-        a.name(href="/admin/project/" + project.id)=project.name
+        a.name(href="/admin/project/" + project.id)=project.name + "(" + project.views + ")"
     td.no-mobile
         if project.isPublished
             a Public

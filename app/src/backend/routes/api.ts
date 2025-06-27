@@ -45,7 +45,10 @@ router.post('/admin/authenticate', (req: Request, res: Response) => {
 
     if (auth.verifyPassword(password)) {
         const token : string = auth.generateToken();
-        res.cookie("token", token);
+        res.cookie("token", token, {
+            httpOnly: true,
+            sameSite: "lax",
+        });
         res.redirect("/admin/panel");
     } else {
         res.redirect("/admin");

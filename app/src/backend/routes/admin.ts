@@ -2,6 +2,7 @@
 import { Router, Request, Response } from 'express';
 const router = Router();
 import auth from "../utils/common/authentication";
+import analytics from "../utils/common/analytics";
 import db from "../utils/database/controller";
 import log from "../utils/common/logger";
 
@@ -69,7 +70,12 @@ router.get('/admin/logout', (req: Request, res: Response) => {
 
 router.get('/admin/projects', (req: Request, res: Response) => {
     if(req.cookies && auth.authenticateToken(req.cookies["token"])) {
-        let projects = db.getProjects();
+        let projects = db.getProjects().map(project => {
+            return {
+                ...project, // Spread all existing project properties
+                views: analytics.getViewCount(`/project/${project.id}`) // Add viewCount
+            };
+        });
         res.render("admin/projects", {projects})
     } else {
         res.redirect("/admin?error=" + encodeURIComponent("Incorrect username or password"));

@@ -30,6 +30,15 @@ type about = {
     email: string
 }
 
+type analytics = {
+    views: pageViews[];
+}
+
+type pageViews = {
+    page: string,
+    sessions: string[]
+}
+
 type log = {
     timestamp: string,
     line: string

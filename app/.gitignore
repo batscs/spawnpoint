@@ -5,3 +5,4 @@ node_modules/*
 /src/frontend/css/
 /data/database/http.log
 /data/database/usage.json
+/data/database/analytics.json

@@ -128,6 +128,45 @@ export default class DatabaseController {
         return loadJson("about");
     }
 
+    static getAnalytics = (): analytics => {
+        const data = loadJson("analytics");
+        if (!data || !Array.isArray(data.views)) {
+            return { views: [] };
+        }
+        return data;
+    }
+
+    static saveAnalyticPageView = (page: string, session: string): void => {
+        const analytics = this.getAnalytics();
+        let pageEntry = analytics.views.find(view => view.page === page);
+
+        if (pageEntry) {
+            if (!pageEntry.sessions.includes(session)) {
+                pageEntry.sessions.push(session);
+            }
+        } else {
+            analytics.views.push({
+                page: page,
+                sessions: [session]
+            });
+        }
+
+        console.log("test1")
+        writeJson("analytics", analytics);
+        console.log("test2")
+    }
+
+    static getAnalyticPageViews = (page: string): number => {
+        const analytics = this.getAnalytics();
+        const pageEntry = analytics.views.find(view => view.page === page);
+
+        if (!pageEntry) {
+            return 0;
+        }
+        return pageEntry.sessions.length;
+    }
+
+
     static getProjects = (): project[] => {
         let values : {} | [] | null = loadJson("projects");
         let result : project[] = [];

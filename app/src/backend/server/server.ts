@@ -10,6 +10,7 @@ import router_homepage from '../routes/homepage';
 import router_admin from '../routes/admin';
 import router_api from '../routes/api';
 import httpLogger from '../middleware/http-logger';
+import sessionManager from "../middleware/sessionManager";
 
 const app = express();
 const port = 3000;
@@ -39,6 +40,7 @@ app.use('/static/resources', express.static(path.join(__dirname, "../../../data/
 
 app.set('trust proxy', true);
 
+app.use(sessionManager);
 app.use(httpLogger);
 app.use(router_homepage);
 app.use(router_admin);

@@ -7,6 +7,7 @@ import usageLogger from "../middleware/usage-logger";
 import log from "../utils/common/logger";
 import hljs from 'highlight.js'; // Import highlight.js
 import { marked, Slugger, Renderer } from 'marked';
+import sessionViewTracker from "../middleware/sessionViewtracker";
 const renderer = new marked.Renderer();
 
 const annotationRegex = /^:::(\w+)\s+([\s\S]*?)\s*:::/;
@@ -104,7 +105,7 @@ function generateTOC(markdown: string): { title: string, url: string }[] {
 
 
 
-router.get('/project/:id', (req: Request, res: Response) => {
+router.get('/project/:id', sessionViewTracker((req) => "/project/" + req.params.id), (req: Request, res: Response) => {
     const id = req.params.id;
     const project = db.getProjectById(id);
     log.addUsageLog(req, `PROJECT - ID: ${id}`);

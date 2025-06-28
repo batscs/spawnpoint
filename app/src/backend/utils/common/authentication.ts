@@ -37,7 +37,7 @@ export default class Authentication {
         }
 
         // If the token was not found, return false
-        return true;
+        return false;
     }
 
     static verifyPassword(password: string): boolean {

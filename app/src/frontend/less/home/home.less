@@ -12,23 +12,15 @@ body {
     background-image: radial-gradient(circle, rgba(0, 0, 0, 0.05) 1px, transparent 2px);
     background-size: 10px 10px; /* Increased size for the grain pattern */
     background-blend-mode: multiply;
+
+    margin: 0;
+    padding: 0;
 }
 
 * {
     font-family: @font-primary;
-    scrollbar-color: @bg-contrast @bg-primary;
-    scrollbar-width: thin;
+    scrollbar-color: @bg-contrast @bg-accent;
     scrollbar-gutter: stable;
-}
-
-.seperator {
-    width: @max-width;
-    max-width: 95vw;
-    height: 2px;
-    background-color: @bg-contrast;
-    flex-shrink: 0;
-    margin-bottom: 20px;
-    border-radius: @border-radius-normal;
 }
 
 ::selection {
@@ -47,6 +39,8 @@ body {
     overflow-x: hidden;
 
     flex-direction: column;
+    margin-top: 80px;
+
 }
 
 .border {
